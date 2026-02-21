@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register Your Team</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="page">
+  <img src="volleyball.png" class="floating-ball" alt="volleyball">
+
+  <h1>Register Your Team</h1>
+  <p class="subtitle">
+    Secure your university's spot in the premier collegiate volleyball tournament
+  </p>
+
+  <div class="card">
+    <h2>University Team Registration</h2>
+    <p class="card-subtitle">
+      Fill in your team details to register for VolleyCup 2027
+    </p>
+
+    <form class="form">
+
+      <!-- Row 1 -->
+      <div class="grid-2">
+        <div class="field">
+          <label for="uniName">University Name</label>
+          <input id="uniName" type="text" placeholder="Enter university name" required>
+        </div>
+
+        <div class="field">
+          <label for="captain">Team Captain</label>
+          <input id="captain" type="text" placeholder="Captain name" required>
+        </div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="grid-2">
+        <div class="field">
+          <label for="roster">Roster Size</label>
+          <input id="roster" type="number" min="1" placeholder="Number of players" required>
+        </div>
+
+        <div class="field">
+          <label for="email">Team Contact Email</label>
+          <input id="email" type="email" placeholder="athletics@university.edu" required>
+        </div>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="grid-2">
+        <div class="field">
+          <label for="phone">Contact Phone</label>
+          <input id="phone" type="tel" placeholder="(+216) 12 345 678" required>
+        </div>
+
+        <div class="field">
+          <label>Team Category</label>
+          <div class="choice-row">
+            <label class="choice">
+              <input type="radio" name="category" value="men" checked>
+              <span>Men</span>
+            </label>
+
+            <label class="choice">
+              <input type="radio" name="category" value="women">
+              <span>Women</span>
+            </label>
+
+            <label class="choice">
+              <input type="radio" name="category" value="mixed">
+              <span>Mixed</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Optional Services -->
+      <div class="field">
+        <label>Optional Services</label>
+        <div class="choice-column">
+          <label class="choice">
+            <input type="checkbox" name="services" value="practice">
+            <span>Request practice session slot</span>
+          </label>
+
+          <label class="choice">
+            <input type="checkbox" name="services" value="transport">
+            <span>Request transportation assistance</span>
+          </label>
+
+          <label class="choice">
+            <input type="checkbox" name="services" value="photos">
+            <span>Request official team photos</span>
+          </label>
+        </div>
+      </div>
+
+      <button class="submit" type="submit">Submit Registration</button>
+
+      <p class="fee">
+        Registration fee: <b>10 DT</b> per team. Payment details will be sent after submission.
+      </p>
+
+    </form>
+  </div>
+</div>
+
+</body>
+</html>
