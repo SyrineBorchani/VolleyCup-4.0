@@ -1,0 +1,189 @@
+/* STRUCTURE GLOBALE */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Le "main" occupe tout l'espace disponible pour pousser le footer en bas */
+main {
+    flex: 1;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* STYLE DU HEADER */
+.main-header {
+    background-color: #111;
+    color: white;
+    padding: 20px 0;
+    position:fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.header-logo span {
+    color: #FF4F00;
+}
+
+nav ul {
+    list-style-type: none; 
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none; 
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+nav ul li a.active {
+    color: #FF4F00; 
+    border-bottom: 2px solid #FF4F00;
+    padding-bottom: 5px;
+    font-weight: 700;
+}
+
+nav ul li a:hover {
+    color: #FF4F00;
+}
+
+/* Style de la page active (soulignement orange) */
+nav ul li a.active {
+    border-bottom: 2px solid #FF4F00;
+    padding-bottom: 5px;
+}
+
+/* Style spécifique pour le bouton Register */
+nav ul li a.btn-register {
+    border: 2px solid #FF4F00; /* Crée le cadre orange */
+    padding: 8px 20px;         /* Ajoute de l'espace interne (haut/bas gauche/droite) */
+    border-radius: 5px;        /* Arrondit légèrement les coins */
+    color: #FF4F00;            /* Texte en orange */
+    transition: all 0.3s ease; /* Animation fluide pour le survol */
+}
+
+nav ul li a.btn-register:hover {
+    background-color: #FF4F00; /* Le fond devient orange */
+    color: white;              /* Le texte devient blanc */
+}
+
+/* STYLE DU FOOTER (Design 3 Colonnes) */
+.main-footer {
+    background-color: #0d1117;
+    color: #94a3b8; 
+    padding: 60px 0 20px 0;
+    border-top: 1px solid #334155;
+}
+
+.footer-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex; /* Aligne les colonnes horizontalement */
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-column h3 {
+    color: white;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+.footer-logo { 
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+.footer-logo span {
+    color: #FF4F00;
+}
+
+.footer-description {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-top: 15px;
+    max-width: 260px;
+}
+
+/* Listes de liens et contact */
+.footer-links, .contact-info {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li, .contact-info li {
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+}
+
+.footer-links li a {
+    color: #cbd5e1;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.footer-links li a:hover {
+    color: #FF4F00;
+}
+
+.contact-info li {
+    color: #cbd5e1;
+}
+
+/* Séparateur et Copyright */
+.footer-divider {
+    width: 90%;
+    max-width: 1200px;
+    border: 0;
+    border-top: 1px solid #334155;
+    margin: 40px auto 20px auto;
+}
+
+.footer-bottom {
+    text-align: center;
+    width: 100%;
+}
+
+.footer-bottom p {
+    margin: 5px 0;
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+.footer-bottom strong {
+    color: #FF4F00;
+}
