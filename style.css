@@ -154,7 +154,7 @@ h1{
   font-size: 20px;
   color: #000000;
 }
-
+/* why section */
 /* ================= WHY SECTION ================= */
 .why{
   background: #fff;
@@ -175,7 +175,6 @@ h1{
   justify-content: center;
 }
 
-/* FLOAT + TILT WRAPPER */
 .phone-float{
   transform: rotate(-6deg);
   transform-origin: center;
@@ -183,7 +182,7 @@ h1{
   filter: drop-shadow(0 28px 55px rgba(0,0,0,0.25));
 }
 
-/* PHONE BODY */
+
 .phone{
   width: 270px;
   height: 540px;
@@ -193,7 +192,7 @@ h1{
   position: relative;
 }
 
-/* SCREEN */
+
 .phone-screen{
   width: 100%;
   height: 100%;
@@ -209,6 +208,7 @@ h1{
   display: block;
 }
 
+/* NOTCH */
 .phone-notch{
   position: absolute;
   top: 10px;
@@ -229,13 +229,13 @@ h1{
   pointer-events: none;
 }
 
-/* FLOAT ANIMATION */
 @keyframes floaty{
   0%   { transform: translateY(0px) rotate(-6deg); }
   50%  { transform: translateY(-14px) rotate(-6deg); }
   100% { transform: translateY(0px) rotate(-6deg); }
 }
 
+/* Hover: straighten + pop */
 .phone-float:hover{
   animation: none;
   transform: rotate(-1deg) scale(1.04);
@@ -274,7 +274,6 @@ h1{
   filter: drop-shadow(0 15px 25px rgba(0,0,0,0.3));
 }
 
-/* Floating animation */
 @keyframes ballFloat{
   0%   { transform: translate(0px, 0px) rotate(0deg); }
   25%  { transform: translate(40px, -30px) rotate(90deg); }
@@ -315,7 +314,6 @@ h1{
   grid-row: span 2;
 }
 
-/* image styling */
 .gallery-grid img{
   width: 100%;
   height: 100%;
@@ -349,7 +347,6 @@ h1{
   margin-bottom: 60px;
 }
 
-/* TEAM */
 .team{
   max-width: 1200px;
   margin: 0 auto 70px;
@@ -376,7 +373,6 @@ h1{
   font-weight: 700;
 }
 
-/* VALUES */
 .values{
   max-width: 1300px;
   margin: 0 auto;
@@ -406,7 +402,7 @@ h1{
 .v-icon{
   width: 34px;
   height: 34px;
-  stroke: #ff5a00;    
+  stroke: #ff5a00;       /* your main orange */
   fill: none;
   stroke-width: 2.2;     
   stroke-linecap: round;
@@ -470,8 +466,6 @@ h1{
   color: #6b7787;
   margin-bottom: 26px;
 }
-
-/* Form layout */
 .form{ width: 100%; }
 
 .grid-2{
@@ -509,7 +503,6 @@ input:focus, select:focus{
   background: #fff;
 }
 
-/* Button */
 .submit{
   width: 100%;
   height: 54px;
@@ -540,7 +533,6 @@ input:focus, select:focus{
   position: relative;
 }
 
-/* Floating Volleyball */
 .floating-ball{
   position: absolute;
   top: 40px;
@@ -552,7 +544,6 @@ input:focus, select:focus{
   filter: drop-shadow(0 15px 25px rgba(0,0,0,0.25));
 }
 
-/* Orbit animation */
 @keyframes orbit {
   0%   { transform: translateX(-50%) rotate(0deg) translateY(-40px) rotate(0deg); }
   25%  { transform: translateX(-50%) rotate(90deg) translateY(-40px) rotate(-90deg); }
@@ -582,7 +573,7 @@ input:focus, select:focus{
 .choice input{
   width: 18px;
   height: 18px;
-  accent-color: #ff5a00; 
+  accent-color: #ff5a00; /* orange */
   cursor: pointer;
 }
 
