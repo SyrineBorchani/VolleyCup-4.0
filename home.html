@@ -5,9 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VolleyCup 4.0</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style_header_footer.css" />
 </head>
 <body>
-
+  <header class="main-header"> 
+        <div class="container">
+            <div class="header-logo">
+                Volley<span>Cup</span> 4.0
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="home.html" class="active">Home</a></li>
+                    <li><a href="schedule.html">Schedule</a></li>
+                    <li><a href="teams.html">Teams</a></li>
+                    <li><a href="register.html" class="btn-register">Register</a></li>
+                </ul>
+            </nav>
+        </div>  
+  </header>
+  <main>
   <div class="hero">
     <div class="overlay"></div>
 
@@ -42,7 +58,7 @@
 
   <div class="stat">
     <div class="icon-circle">
-      <!-- User -->
+     
       <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z"/>
         <path d="M4 20a8 8 0 0 1 16 0"/>
@@ -54,7 +70,7 @@
 
   <div class="stat">
     <div class="icon-circle">
-      <!-- Medal -->
+      
       <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
         <circle cx="12" cy="14" r="4"/>
         <path d="M9 2h6l-1 6h-4L9 2Z"/>
@@ -66,7 +82,7 @@
 
   <div class="stat">
     <div class="icon-circle">
-      <!-- Globe -->
+      
       <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
         <circle cx="12" cy="12" r="9"/>
         <path d="M3 12h18"/>
@@ -80,7 +96,7 @@
 
   <div class="stat">
     <div class="icon-circle">
-      <!-- Heart -->
+      
       <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M20.3 5.7a5.2 5.2 0 0 0-7.3 0L12 6.7l-1-1a5.2 5.2 0 0 0-7.3 7.3l1 1L12 21l7.3-7.3 1-1a5.2 5.2 0 0 0 0-7.3Z"/>
       </svg>
@@ -157,7 +173,7 @@
   <div class="values">
     <div class="value">
       <div class="value-icon">
-        <!-- trophy -->
+        
         <svg viewBox="0 0 24 24" class="v-icon" aria-hidden="true">
           <path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 0 1-10 0V4Z"/>
           <path d="M5 6H3v2a4 4 0 0 0 4 4"/>
@@ -170,7 +186,7 @@
 
     <div class="value">
       <div class="value-icon">
-        <!-- community -->
+       
       <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z"/>
         <path d="M4 20a8 8 0 0 1 16 0"/>
@@ -182,7 +198,7 @@
 
     <div class="value">
       <div class="value-icon">
-        <!-- target -->
+       
         <svg viewBox="0 0 24 24" class="v-icon" aria-hidden="true">
           <circle cx="12" cy="12" r="8"/>
           <circle cx="12" cy="12" r="4"/>
@@ -195,7 +211,7 @@
 
     <div class="value">
       <div class="value-icon">
-        <!-- heart -->
+        
         <svg viewBox="0 0 24 24" class="v-icon" aria-hidden="true">
           <path d="M20.3 5.7a5.2 5.2 0 0 0-7.3 0L12 6.7l-1-1a5.2 5.2 0 0 0-7.3 7.3l1 1L12 21l7.3-7.3 1-1a5.2 5.2 0 0 0 0-7.3Z"/>
         </svg>
@@ -205,5 +221,45 @@
     </div>
   </div>
 </div>
+</main>
+  <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <div class="footer-logo">Volley<span>Cup</span> 4.0</div>
+                <p class="footer-description">
+                    The premier intercollegiate volleyball
+                    tournament bringing universities
+                    together since 2023.
+                </p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <ul class="contact-info">
+                    <li>📧 <a href="https://mail.google.com/mail/u/6/#inbox">
+                            volleycup.x@gmail.com 
+                            </a>
+                    </li>
+                    <li>📞 <a href="tel:+216123456789"> 
+                             +216 123 456 789
+                            </a>
+                    </li>
+                    <li>📍<a href="https://maps.app.goo.gl/LzZDCpgUu3KXt3e27">  
+                           ENSI - National School of Computer Science
+                           </a>
+                    </li>
+                </ul>
+            </div>
+            <hr class="footer-divider">
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 <strong>VolleyCup</strong>. All rights reserved.</p>
+                <p>Designed for the University Tournament.</p>
+            </div>
+        </div>
+  </footer>
 </body>
 </html>

@@ -26,7 +26,8 @@ main {
     background-color: #111;
     color: white;
     padding: 20px 0;
-    position: sticky;
+    position:fixed;
+    width: 100%;
     top: 0;
     z-index: 1000;
 }

@@ -155,6 +155,7 @@ h1{
   color: #000000;
 }
 /* why section */
+/* ================= WHY SECTION ================= */
 .why{
   background: #fff;
   padding: 110px 20px;
@@ -207,7 +208,7 @@ h1{
   display: block;
 }
 
-
+/* NOTCH */
 .phone-notch{
   position: absolute;
   top: 10px;
@@ -234,7 +235,7 @@ h1{
   100% { transform: translateY(0px) rotate(-6deg); }
 }
 
-
+/* Hover: straighten + pop */
 .phone-float:hover{
   animation: none;
   transform: rotate(-1deg) scale(1.04);
@@ -401,7 +402,7 @@ h1{
 .v-icon{
   width: 34px;
   height: 34px;
-  stroke: #ff5a00;      
+  stroke: #ff5a00;       /* your main orange */
   fill: none;
   stroke-width: 2.2;     
   stroke-linecap: round;
@@ -430,7 +431,7 @@ body{
 }
 
 .page{
-  width: min(1100px, 92%);
+  width:1100px;
   margin: 70px auto 90px;
   text-align: center;
 }
@@ -572,7 +573,7 @@ input:focus, select:focus{
 .choice input{
   width: 18px;
   height: 18px;
-  accent-color: #ff5a00;
+  accent-color: #ff5a00; /* orange */
   cursor: pointer;
 }
 
@@ -585,4 +586,150 @@ input:focus, select:focus{
   background: transparent;
   border: none;
   padding: 0;
+}
+
+/* ================= TEAMS PAGE ================= */
+.teams-page {
+  background: #f6f7fb;
+  min-height: 100vh;
+  padding: 100px 5% 90px; 
+}
+
+.teams-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.teams-header h1 {
+  font-size: 64px;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 14px;
+}
+
+.teams-subtitle {
+  font-size: 20px;
+  color: #5a6775;
+  margin-bottom: 30px;
+}
+
+.teams-divider {
+  border: none;
+  border-top: 1px solid #e2e8f0;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.teams-container {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.team-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.team-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+}
+
+.badge-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.rank {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  color: white;
+  font-weight: 800;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rank-red     { background: #ef4444; }
+.rank-blue    { background: #3b82f6; }
+.rank-darkred { background: #b91c1c; }
+.rank-orange  { background: #ff5a00; }
+.rank-gold    { background: #d97706; }
+
+.uni-name {
+  background: #f1f5f9;
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #475569;
+  font-weight: 600;
+}
+
+.team-name {
+  font-size: 22px;
+  font-weight: 800;
+  color: #111;
+  margin-top: 4px;
+}
+
+.conference-rank {
+  font-size: 15px;
+  color: #5a6775;
+}
+
+.key-players {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 14px;
+  margin-top: 6px;
+}
+
+.players-label {
+  font-size: 13px;
+  color: #94a3b8;
+  font-weight: 600;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.key-players p {
+  font-size: 15px;
+  color: #333;
+  line-height: 1.8;
+}
+
+.sets-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 14px;
+  margin-top: auto;
+}
+
+.sets-label {
+  font-size: 14px;
+  color: #94a3b8;
+}
+
+.sets-number {
+  font-size: 32px;
+  font-weight: 800;
+  color: #111;
 }
