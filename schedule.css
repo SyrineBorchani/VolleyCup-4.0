@@ -1,9 +1,15 @@
+/* =============================================
+   VOLLEYCUP 4.0 — SCHEDULE PAGE
+   schedule.css
+   ============================================= */
 
 body {
   background: #f6f7fb;
 }
 
-
+/* =============================================
+   PAGE WRAPPER
+   ============================================= */
 .schedule-page {
   max-width: 1000px;
   margin: 80px auto 110px;
@@ -11,7 +17,9 @@ body {
   position: relative;
 }
 
-
+/* =============================================
+   HERO HEADER
+   ============================================= */
 .schedule-hero {
   text-align: center;
   margin-bottom: 56px;
@@ -46,60 +54,9 @@ body {
   50%       { transform: translateY(-18px) rotate(20deg); }
 }
 
-
-.day-tabs {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 44px;
-  flex-wrap: wrap;
-}
-
-.day-tab {
-  padding: 13px 34px;
-  border-radius: 50px;
-  border: 2px solid #e0e2e8;
-  background: white;
-  font-size: 15px;
-  font-weight: 700;
-  color: #5a6775;
-  cursor: pointer;
-  font-family: Arial, sans-serif;
-  transition: border-color 0.2s ease, color 0.2s ease,
-              background 0.2s ease, box-shadow 0.2s ease,
-              transform 0.15s ease;
-}
-
-.day-tab:hover {
-  border-color: #ff5a00;
-  color: #ff5a00;
-  transform: translateY(-2px);
-}
-
-.day-tab.active {
-  background: #ff5a00;
-  border-color: #ff5a00;
-  color: white;
-  box-shadow: 0 8px 22px rgba(255, 90, 0, 0.38);
-  transform: translateY(-2px);
-}
-
-
-.day-panel {
-  display: none;
-}
-
-.day-panel.active {
-  display: block;
-  animation: panelReveal 0.35s ease both;
-}
-
-@keyframes panelReveal {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0);    }
-}
-
-
+/* =============================================
+   DAY HEADER BANNER
+   ============================================= */
 .day-header {
   display: flex;
   align-items: center;
@@ -109,7 +66,7 @@ body {
   border-radius: 18px;
   border: 1px solid rgba(0, 0, 0, 0.07);
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.07);
-  margin-bottom: 24px;
+  margin-bottom: 28px;
   flex-wrap: wrap;
 }
 
@@ -141,7 +98,9 @@ body {
   white-space: nowrap;
 }
 
-
+/* =============================================
+   EVENT LIST & CARDS
+   ============================================= */
 .event-list {
   display: flex;
   flex-direction: column;
@@ -159,14 +118,21 @@ body {
   gap: 20px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
   transition: transform 0.22s ease, box-shadow 0.22s ease;
-  animation: cardSlideIn 0.35s ease both;
+  animation: cardSlideIn 0.4s ease both;
 }
 
-.event-list .event-card:nth-child(1) { animation-delay: 0.05s; }
-.event-list .event-card:nth-child(2) { animation-delay: 0.10s; }
-.event-list .event-card:nth-child(3) { animation-delay: 0.15s; }
-.event-list .event-card:nth-child(4) { animation-delay: 0.20s; }
-.event-list .event-card:nth-child(5) { animation-delay: 0.25s; }
+.event-list .event-card:nth-child(1)  { animation-delay: 0.04s; }
+.event-list .event-card:nth-child(2)  { animation-delay: 0.08s; }
+.event-list .event-card:nth-child(3)  { animation-delay: 0.12s; }
+.event-list .event-card:nth-child(4)  { animation-delay: 0.16s; }
+.event-list .event-card:nth-child(5)  { animation-delay: 0.20s; }
+.event-list .event-card:nth-child(6)  { animation-delay: 0.24s; }
+.event-list .event-card:nth-child(7)  { animation-delay: 0.28s; }
+.event-list .event-card:nth-child(8)  { animation-delay: 0.32s; }
+.event-list .event-card:nth-child(9)  { animation-delay: 0.36s; }
+.event-list .event-card:nth-child(10) { animation-delay: 0.40s; }
+.event-list .event-card:nth-child(11) { animation-delay: 0.44s; }
+.event-list .event-card:nth-child(12) { animation-delay: 0.48s; }
 
 @keyframes cardSlideIn {
   from { opacity: 0; transform: translateY(14px); }
@@ -178,6 +144,7 @@ body {
   box-shadow: 0 14px 36px rgba(0, 0, 0, 0.11);
 }
 
+/* Left – event info */
 .event-info h3 {
   font-size: 19px;
   font-weight: 700;
@@ -201,6 +168,7 @@ body {
   flex-shrink: 0;
 }
 
+/* Right – time pill */
 .event-time {
   background: rgba(91, 155, 213, 0.13);
   color: #3f72aa;
@@ -213,6 +181,7 @@ body {
   font-family: Arial, sans-serif;
 }
 
+/* Orange highlight variant */
 .event-card.highlight .event-location .dot {
   background: #ff5a00;
 }
