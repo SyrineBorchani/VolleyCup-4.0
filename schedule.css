@@ -1,192 +1,152 @@
-/* =============================================
-   VOLLEYCUP 4.0 — SCHEDULE PAGE
-   schedule.css
-   ============================================= */
-
-body {
-  background: #f6f7fb;
-}
-
-/* =============================================
-   PAGE WRAPPER
-   ============================================= */
-.schedule-page {
-  max-width: 1000px;
-  margin: 80px auto 110px;
-  padding: 0 24px;
-  position: relative;
-}
-
-/* =============================================
-   HERO HEADER
-   ============================================= */
-.schedule-hero {
-  text-align: center;
-  margin-bottom: 56px;
-  position: relative;
-}
-
-.schedule-hero h1 {
-  font-size: 72px;
-  font-weight: 800;
-  color: #111;
-  margin-bottom: 14px;
-  line-height: 1.05;
-}
-
-.schedule-hero .hero-sub {
-  font-size: 20px;
-  color: #5a6775;
-}
-
-.sched-ball {
-  position: absolute;
-  top: 0;
-  right: -10px;
-  width: 84px;
-  pointer-events: none;
-  animation: schedBallFloat 6s ease-in-out infinite;
-  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.22));
-}
-
-@keyframes schedBallFloat {
-  0%, 100% { transform: translateY(0px)   rotate(0deg);  }
-  50%       { transform: translateY(-18px) rotate(20deg); }
-}
-
-/* =============================================
-   DAY HEADER BANNER
-   ============================================= */
-.day-header {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  padding: 22px 30px;
-  background: white;
-  border-radius: 18px;
-  border: 1px solid rgba(0, 0, 0, 0.07);
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.07);
-  margin-bottom: 28px;
-  flex-wrap: wrap;
-}
-
-.day-badge {
-  background: #ff5a00;
-  color: white;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 1px;
-  padding: 6px 16px;
-  border-radius: 30px;
-  white-space: nowrap;
-  text-transform: uppercase;
-  flex-shrink: 0;
-}
-
-.day-header h2 {
-  font-size: 26px;
-  font-weight: 800;
-  color: #111;
-  margin: 0;
-  flex: 1;
-}
-
-.day-date {
-  font-size: 14px;
-  color: #5a6775;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-/* =============================================
-   EVENT LIST & CARDS
-   ============================================= */
-.event-list {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.event-card {
-  background: white;
-  border-radius: 16px;
-  border: 1px solid rgba(0, 0, 0, 0.07);
-  padding: 22px 28px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-  transition: transform 0.22s ease, box-shadow 0.22s ease;
-  animation: cardSlideIn 0.4s ease both;
-}
-
-.event-list .event-card:nth-child(1)  { animation-delay: 0.04s; }
-.event-list .event-card:nth-child(2)  { animation-delay: 0.08s; }
-.event-list .event-card:nth-child(3)  { animation-delay: 0.12s; }
-.event-list .event-card:nth-child(4)  { animation-delay: 0.16s; }
-.event-list .event-card:nth-child(5)  { animation-delay: 0.20s; }
-.event-list .event-card:nth-child(6)  { animation-delay: 0.24s; }
-.event-list .event-card:nth-child(7)  { animation-delay: 0.28s; }
-.event-list .event-card:nth-child(8)  { animation-delay: 0.32s; }
-.event-list .event-card:nth-child(9)  { animation-delay: 0.36s; }
-.event-list .event-card:nth-child(10) { animation-delay: 0.40s; }
-.event-list .event-card:nth-child(11) { animation-delay: 0.44s; }
-.event-list .event-card:nth-child(12) { animation-delay: 0.48s; }
-
-@keyframes cardSlideIn {
-  from { opacity: 0; transform: translateY(14px); }
-  to   { opacity: 1; transform: translateY(0);    }
-}
-
-.event-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.11);
-}
-
-/* Left – event info */
-.event-info h3 {
-  font-size: 19px;
-  font-weight: 700;
-  color: #111;
-  margin-bottom: 7px;
-}
-
-.event-location {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 14px;
-  color: #5a6775;
-}
-
-.event-location .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #5b9bd5;
-  flex-shrink: 0;
-}
-
-/* Right – time pill */
-.event-time {
-  background: rgba(91, 155, 213, 0.13);
-  color: #3f72aa;
-  font-size: 14px;
-  font-weight: 700;
-  padding: 7px 16px;
-  border-radius: 20px;
-  white-space: nowrap;
-  flex-shrink: 0;
+body{
+  background:#f6f7fb;
+  margin:0;
   font-family: Arial, sans-serif;
 }
 
-/* Orange highlight variant */
-.event-card.highlight .event-location .dot {
-  background: #ff5a00;
+.schedule-page{
+  max-width:1000px;
+  margin:70px auto 100px;
+  padding:0 24px;
+  position:relative;
 }
 
-.event-card.highlight .event-time {
-  background: rgba(255, 90, 0, 0.12);
-  color: #ff5a00;
+.schedule-hero{
+  text-align:center;
+  margin-bottom:40px;
+  position:relative;
 }
+
+.schedule-hero h1{
+  font-size:56px;
+  font-weight:800;
+  color:#111;
+  margin:0 0 10px;
+}
+
+.schedule-hero .hero-sub{
+  font-size:18px;
+  color:#5a6775;
+  margin:0;
+}
+
+.sched-ball{
+  position:absolute;
+  top:-6px;
+  right:-6px;
+  width:74px;
+  pointer-events:none;
+  filter: drop-shadow(0 12px 22px rgba(0,0,0,.18));
+}
+
+.day-header{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:18px 22px;
+  background:#fff;
+  border-radius:14px;
+  border:1px solid rgba(0,0,0,.07);
+  box-shadow:0 8px 22px rgba(0,0,0,.06);
+  margin-bottom:18px;
+  flex-wrap:wrap;
+}
+
+.day-badge{
+  background:#ff5a00;
+  color:#fff;
+  font-size:12px;
+  font-weight:800;
+  padding:6px 14px;
+  border-radius:999px;
+  letter-spacing:.8px;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+
+.day-header h2{
+  font-size:22px;
+  font-weight:800;
+  color:#111;
+  margin:0;
+  flex:1;
+}
+
+.day-date{
+  font-size:14px;
+  color:#5a6775;
+  font-weight:600;
+  white-space:nowrap;
+}
+
+/* ===== TABLE ===== */
+.event-table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0;
+  background:#fff;
+  border:1px solid rgba(0,0,0,.07);
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 8px 22px rgba(0,0,0,.06);
+}
+
+.event-table thead th{
+  text-align:left;
+  font-size:12px;
+  letter-spacing:.8px;
+  text-transform:uppercase;
+  color:#ff5a00;
+  background:#fafbfe;
+  padding:14px 18px;
+  border-bottom:1px solid rgba(0,0,0,.07);
+}
+.event-table th:last-child,
+.event-table td:last-child {
+  text-align: right;
+}
+.event-table tbody td{
+  padding:16px 18px;
+  border-bottom:1px solid rgba(0,0,0,.06);
+  vertical-align:middle;
+}
+
+.event-table tbody tr:last-child td{
+  border-bottom:none;
+}
+
+.event-table tbody tr:hover{
+  background:#ff590016;
+}
+
+.event-table tbody td:nth-child(1){
+  font-weight:700;
+  color:#111;
+}
+
+.event-table tbody td:nth-child(2){
+  color:#5a6775;
+  font-weight:600;
+}
+
+.event-table tbody td:nth-child(3){
+  text-align:right;
+  white-space:nowrap;
+}
+
+
+.event-time{
+  display:inline-block;
+  padding:6px 12px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:700;
+  background:rgba(91,155,213,.14);
+  color:#3f72aa;
+}
+
+.event-table tbody tr.highlight .event-time{
+  background:rgba(255,90,0,.14);
+  color:#ff5a00;
+}
+
