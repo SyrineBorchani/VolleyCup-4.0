@@ -1,6 +1,9 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: Arial, sans-serif; }
 /* home page */
+main{
+  margin-top: 10px;
+}
 .hero{
   height: 100vh;
   position: relative;
@@ -154,7 +157,7 @@ h1{
   font-size: 20px;
   color: #000000;
 }
-/* why section */
+
 /* ================= WHY SECTION ================= */
 .why{
   background: #fff;
@@ -402,7 +405,7 @@ h1{
 .v-icon{
   width: 34px;
   height: 34px;
-  stroke: #ff5a00;       /* your main orange */
+  stroke: #ff5a00;       
   fill: none;
   stroke-width: 2.2;     
   stroke-linecap: round;
@@ -535,21 +538,18 @@ input:focus, select:focus{
 
 .floating-ball{
   position: absolute;
-  top: 40px;
-  left: 90%;
+  top: 25px;
+  left: 80%;
   width: 90px;
-  transform: translateX(-50%);
+  transform: translateX(-40%);
   pointer-events: none;
   animation: orbit 8s linear infinite;
   filter: drop-shadow(0 15px 25px rgba(0,0,0,0.25));
 }
 
 @keyframes orbit {
-  0%   { transform: translateX(-50%) rotate(0deg) translateY(-40px) rotate(0deg); }
-  25%  { transform: translateX(-50%) rotate(90deg) translateY(-40px) rotate(-90deg); }
-  50%  { transform: translateX(-50%) rotate(180deg) translateY(-40px) rotate(-180deg); }
-  75%  { transform: translateX(-50%) rotate(270deg) translateY(-40px) rotate(-270deg); }
-  100% { transform: translateX(-50%) rotate(360deg) translateY(-40px) rotate(-360deg); }
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%      { transform: translateY(-18px) rotate(20deg); }
 }
 
 .choice-row{
@@ -573,7 +573,7 @@ input:focus, select:focus{
 .choice input{
   width: 18px;
   height: 18px;
-  accent-color: #ff5a00; /* orange */
+  accent-color: #ff5a00;
   cursor: pointer;
 }
 
