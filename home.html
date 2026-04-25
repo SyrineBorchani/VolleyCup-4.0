@@ -40,6 +40,8 @@
         <span>🏆 250 DT</span>
       </div>
 
+      <div class="hero-alerts" id="heroAlerts"></div>
+
       <div class="buttons">
         <a class="btn primary" href="register.html">Register Your Team</a>
         <a class="btn outline" href="schedule.html">View Schedule</a>
@@ -145,13 +147,15 @@
 
   <div class="gallery-grid">
     <div class="g-big">
-      <img src="g1.jfif" alt="VolleyCup photo 1">
+      <img src="g1.jfif" alt="VolleyCup photo 1" id="mainGalleryImage" class="gallery-demo-image" title="Click to change image">
     </div>
     <div class="g-small"><img src="g2.jfif" alt="VolleyCup photo 2"></div>
     <div class="g-small"><img src="g3.jfif" alt="VolleyCup photo 3"></div>
     <div class="g-small"><img src="g4.jfif" alt="VolleyCup photo 4"></div>
     <div class="g-small"><img src="g5.jfif" alt="VolleyCup photo 5"></div>
   </div>
+
+  <p class="gallery-demo-note">Click the large image to switch its <code>src</code>.</p>
 </div>
 <div class="aboutus">
   <h2>About Us</h2>
@@ -266,14 +270,93 @@
         </div>
   </footer>
   <script>
+    const eventDate = new Date("2026-12-05T09:00:00+01:00");
+
+    function formatDeadline(date) {
+      const month = date.toLocaleString("en-US", { month: "long" });
+      const day = date.getDate();
+
+      function getOrdinal(value) {
+        if (value > 3 && value < 21) {
+          return "th";
+        }
+
+        switch (value % 10) {
+          case 1:
+            return "st";
+          case 2:
+            return "nd";
+          case 3:
+            return "rd";
+          default:
+            return "th";
+        }
+      }
+
+      return {
+        plain: month + " " + day + getOrdinal(day),
+        html: month + " " + day + String(getOrdinal(day)).sup()
+      };
+    }
+
+    function renderPromoBadge() {
+      const heroAlerts = document.getElementById("heroAlerts");
+
+      if (!heroAlerts) {
+        return;
+      }
+
+      const registrationDeadline = new Date(eventDate);
+      registrationDeadline.setDate(registrationDeadline.getDate() - 4);
+
+      const badge = document.createElement("p");
+      badge.className = "promo-badge";
+
+      const dot = document.createElement("span");
+      dot.className = "promo-badge__dot";
+      dot.setAttribute("aria-hidden", "true");
+
+      const deadline = formatDeadline(registrationDeadline);
+      const message = document.createElement("span");
+      const alertText = "Limited spots left".bold().fontcolor("#fff7e8").big();
+      const deadlineText = (" Register before " + deadline.html + ".").italics();
+
+      message.innerHTML = alertText + deadlineText;
+
+      badge.appendChild(dot);
+      badge.appendChild(message);
+      heroAlerts.replaceChildren(badge);
+    }
+
+    function setupGalleryImageDemo() {
+      const mainGalleryImage = document.getElementById("mainGalleryImage");
+
+      if (!mainGalleryImage) {
+        return;
+      }
+
+      const firstImage = "g1.jfif";
+      const secondImage = "g2.jfif";
+
+      mainGalleryImage.addEventListener("click", function() {
+        const imageObject = new Image();
+
+        if (mainGalleryImage.src.indexOf(firstImage) !== -1) {
+          imageObject.src = secondImage;
+        } else {
+          imageObject.src = firstImage;
+        }
+
+        mainGalleryImage.src = imageObject.src;
+      });
+    }
+
     function startCountdown() {
       const countdown = document.getElementById("countdown");
 
       if (!countdown) {
         return;
       }
-
-      const eventDate = new Date("2026-12-05T09:00:00+01:00");
 
       function updateCountdown() {
         const now = new Date();
@@ -341,6 +424,8 @@
       });
     }
     document.addEventListener("DOMContentLoaded", function() {
+      renderPromoBadge();
+      setupGalleryImageDemo();
       startCountdown();
       animateStats();
     });

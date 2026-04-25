@@ -282,11 +282,42 @@
         return firstError;
       }
 
+      function playTransitionSound() {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+
+        if (!AudioContextClass) {
+          return;
+        }
+
+        const audioContext = new AudioContextClass();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+
+        oscillator.type = "square";
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+
+        oscillator.frequency.setValueAtTime(392, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(659.25, audioContext.currentTime + 0.18);
+        oscillator.frequency.exponentialRampToValueAtTime(987.77, audioContext.currentTime + 0.36);
+
+        gainNode.gain.setValueAtTime(0.0001, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.22, audioContext.currentTime + 0.04);
+        gainNode.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.55);
+
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + 0.55);
+
+        oscillator.addEventListener("ended", function() {
+          audioContext.close();
+        });
+      }
+
       function handleSubmit(event) {
         event.preventDefault();
 
         if (isFormEmpty()) {
-          alert("Please fill in the form.");
+          window.alert("Please fill in the form.");
           validateForm();
           return;
         }
@@ -294,12 +325,16 @@
         const error = validateForm();
 
         if (error) {
-          alert("Please correct the highlighted fields.");
+          window.alert("Please correct the highlighted fields.");
           error.field.focus();
           return;
         }
 
-        window.location.href = "success.html";
+        playTransitionSound();
+
+        setTimeout(function() {
+          window.location.href = "success.html";
+        }, 900);
       }
 
       function attachLiveValidation() {

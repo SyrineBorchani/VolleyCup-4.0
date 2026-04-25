@@ -111,12 +111,57 @@
       background: rgba(255, 90, 0, 0.08);
     }
 
+    .success-btn.danger {
+      border: 1px solid rgba(255, 107, 107, 0.34);
+      color: #ffd7d7;
+      background: rgba(255, 107, 107, 0.12);
+      cursor: pointer;
+      font: inherit;
+    }
+
     .success-btn:hover {
       transform: translateY(-2px);
     }
 
     .success-btn.primary:hover {
       background: #e64a00;
+    }
+
+    .success-btn.danger:hover {
+      background: rgba(255, 107, 107, 0.2);
+    }
+
+    .success-btn:disabled {
+      opacity: 0.72;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .success-card.is-cancelled {
+      border-color: rgba(255, 107, 107, 0.28);
+      background:
+        linear-gradient(145deg, rgba(255, 107, 107, 0.12), rgba(255, 107, 107, 0.03) 42%),
+        linear-gradient(180deg, #10131a 0%, #090b10 100%);
+    }
+
+    .success-card.is-cancelled .success-kicker {
+      background: rgba(255, 107, 107, 0.12);
+      border-color: rgba(255, 107, 107, 0.24);
+      color: #ffb4b4;
+    }
+
+    .success-card.is-cancelled .success-dot {
+      background: #ff6b6b;
+      box-shadow: 0 0 16px rgba(255, 107, 107, 0.65);
+    }
+
+    .success-card.is-cancelled .success-title span {
+      color: #ff6b6b;
+    }
+
+    .success-card.is-cancelled .success-check {
+      background: #ff6b6b;
+      box-shadow: 0 18px 36px rgba(255, 107, 107, 0.24);
     }
 
     .success-check {
@@ -181,22 +226,23 @@
   </header>
 
   <main class="success-page">
-    <section class="success-card">
-      <div class="success-check" aria-hidden="true">&#10003;</div>
+    <section class="success-card" id="successCard">
+      <div class="success-check" id="successCheck" aria-hidden="true">&#10003;</div>
 
       <div class="success-kicker">
         <span class="success-dot"></span>
-        Team Registered
+        <span id="successKickerText">Team Registered</span>
       </div>
 
-      <h1 class="success-title">Registration <span>Confirmed</span></h1>
-      <p class="success-text">
+      <h1 class="success-title" id="successTitle">Registration <span>Confirmed</span></h1>
+      <p class="success-text" id="successText">
         Your team has been added successfully. We will contact you soon with the next steps.
       </p>
 
       <div class="success-actions">
         <a class="success-btn primary" href="home.html">Back to Home</a>
         <a class="success-btn secondary" href="register.html">Register Again</a>
+        <button class="success-btn danger" id="cancelRegistrationBtn" type="button">Cancel Registration</button>
       </div>
     </section>
   </main>
@@ -233,7 +279,7 @@
   </footer>
 
   <script>
-    function playSuccessSound() {
+    function playCancelSound() {
       const AudioContextClass = window.AudioContext || window.webkitAudioContext;
 
       if (!AudioContextClass) {
@@ -241,33 +287,71 @@
       }
 
       const audioContext = new AudioContextClass();
-      const oscillator = audioContext.createOscillator();
-      const gainNode = audioContext.createGain();
+      const now = audioContext.currentTime;
 
-      oscillator.type = "triangle";
-      oscillator.connect(gainNode);
-      gainNode.connect(audioContext.destination);
+      function playWomp(startTime, startFrequency, endFrequency) {
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
 
-      oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime);
-      oscillator.frequency.exponentialRampToValueAtTime(783.99, audioContext.currentTime + 0.16);
-      oscillator.frequency.exponentialRampToValueAtTime(1046.5, audioContext.currentTime + 0.3);
+        oscillator.type = "triangle";
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
 
-      gainNode.gain.setValueAtTime(0.0001, audioContext.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.14, audioContext.currentTime + 0.03);
-      gainNode.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.42);
+        oscillator.frequency.setValueAtTime(startFrequency, startTime);
+        oscillator.frequency.exponentialRampToValueAtTime(endFrequency, startTime + 0.42);
 
-      oscillator.start(audioContext.currentTime);
-      oscillator.stop(audioContext.currentTime + 0.42);
+        gainNode.gain.setValueAtTime(0.0001, startTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.38, startTime + 0.03);
+        gainNode.gain.exponentialRampToValueAtTime(0.0001, startTime + 0.46);
 
-      oscillator.addEventListener("ended", function() {
+        oscillator.start(startTime);
+        oscillator.stop(startTime + 0.46);
+      }
+
+      playWomp(now, 160, 92);
+      playWomp(now + 0.44, 132, 72);
+
+      setTimeout(function() {
         audioContext.close();
-      });
+      }, 1200);
+    }
+
+    function cancelRegistration() {
+      const successCard = document.getElementById("successCard");
+      const successCheck = document.getElementById("successCheck");
+      const successKickerText = document.getElementById("successKickerText");
+      const successTitle = document.getElementById("successTitle");
+      const successText = document.getElementById("successText");
+      const cancelButton = document.getElementById("cancelRegistrationBtn");
+
+      if (!successCard || !successCheck || !successKickerText || !successTitle || !successText || !cancelButton) {
+        return;
+      }
+
+      if (!window.confirm("Do you want to cancel this registration?")) {
+        return;
+      }
+
+      playCancelSound();
+      successCard.classList.add("is-cancelled");
+      successCheck.innerHTML = "&#10005;";
+      successKickerText.textContent = "Registration Canceled";
+      successTitle.innerHTML = "Registration <span>Canceled</span>";
+      successText.textContent = "Your registration has been canceled for this demo. You can return to the form and submit again at any time.";
+      cancelButton.disabled = true;
+      cancelButton.textContent = "Registration Canceled";
     }
 
     document.addEventListener("DOMContentLoaded", function() {
-      playSuccessSound();
-      document.body.addEventListener("click", playSuccessSound, { once: true });
+      const cancelButton = document.getElementById("cancelRegistrationBtn");
+
+      if (!cancelButton) {
+        return;
+      }
+
+      cancelButton.addEventListener("click", cancelRegistration);
     });
   </script>
+
 </body>
 </html>
