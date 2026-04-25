@@ -663,6 +663,47 @@ input:focus, select:focus{
   border: none;
   padding: 0;
 }
+.form-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.form-actions .submit {
+  flex: 1;
+}
+
+button.reset {
+  padding: 14px 24px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 100, 80, 0.4);
+  background: rgba(255, 80, 60, 0.12);
+  color: #ff8070;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.15s;
+}
+
+button.reset:hover {
+  background: rgba(255, 80, 60, 0.25);
+  border-color: rgba(255, 100, 80, 0.7);
+  color: #ffb3a8;
+}
+
+button.reset:active {
+  animation: resetShake 0.35s ease;
+}
+
+@keyframes resetShake {
+  0%   { transform: translateX(0); }
+  20%  { transform: translateX(-5px) rotate(-1deg); }
+  40%  { transform: translateX(5px) rotate(1deg); }
+  60%  { transform: translateX(-4px); }
+  80%  { transform: translateX(4px); }
+  100% { transform: translateX(0); }
+}
 
 /* ================= TEAMS PAGE ================= */
 .teams-page {

@@ -271,4 +271,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
   attachLiveValidation();
   form.addEventListener("submit", handleSubmit);
+
+  const resetButton = document.getElementById("resetButton");
+  if (resetButton) {
+    resetButton.addEventListener("click", function() {
+      form.reset();
+      clearAllErrors();
+      clearServerMessage();
+    });
+  }
 });
