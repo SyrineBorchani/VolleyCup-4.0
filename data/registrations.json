@@ -1,0 +1,32 @@
+[
+    {
+        "id": "ad397b35a04d8a54",
+        "university_name": "TBS",
+        "captain": "ALI",
+        "roster_size": 10,
+        "email": "syrineborcheni@gmail.com",
+        "phone": "52896348",
+        "category": "men",
+        "services": [],
+        "comments": "",
+        "status": "cancelled",
+        "submitted_at": "2026-04-25T10:15:54+00:00",
+        "cancelled_at": "2026-04-25T10:17:28+00:00"
+    },
+    {
+        "id": "1303eba95bb5bb3e",
+        "university_name": "VolleyCup Test University",
+        "captain": "Test Captain",
+        "roster_size": 8,
+        "email": "test-team@volleycup.local",
+        "phone": "+216 11 111 111",
+        "category": "mixed",
+        "services": [
+            "practice"
+        ],
+        "comments": "Created by add_test_team.php",
+        "status": "cancelled",
+        "submitted_at": "2026-04-25T10:25:01+00:00",
+        "cancelled_at": "2026-04-25T10:25:01+00:00"
+    }
+]

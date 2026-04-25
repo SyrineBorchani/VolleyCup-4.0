@@ -11,7 +11,7 @@ main{
   justify-content: center;
   align-items: center;
   text-align: center;
-  background: url("hero.jfif") center/cover no-repeat;
+  background: url("src/assets/images/hero.jfif") center/cover no-repeat;
 }
 .overlay{
   position: absolute;
@@ -329,7 +329,7 @@ h1{
   position: absolute;
   width: 80px;
   height: 80px;
-  background: url("volleyball.png") center/contain no-repeat;
+  background: url("src/assets/images/volleyball.png") center/contain no-repeat;
   top: 40px;
   right: 20px;
 

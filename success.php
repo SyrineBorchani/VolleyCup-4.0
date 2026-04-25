@@ -1,9 +1,82 @@
+<?php
+declare(strict_types=1);
+
+$dataFile = __DIR__ . '/data/registrations.json';
+$registrationId = isset($_GET['id']) ? trim((string) $_GET['id']) : '';
+$registration = null;
+$statusMessage = '';
+
+function escape(?string $value): string
+{
+    return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
+}
+
+function load_registrations(string $path): array
+{
+    if (!file_exists($path)) {
+        return [];
+    }
+
+    $json = file_get_contents($path);
+
+    if ($json === false || trim($json) === '') {
+        return [];
+    }
+
+    $decoded = json_decode($json, true);
+
+    return is_array($decoded) ? $decoded : [];
+}
+
+function save_registrations(string $path, array $registrations): void
+{
+    $json = json_encode($registrations, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+
+    if ($json === false) {
+        throw new RuntimeException('Failed to encode registration data.');
+    }
+
+    $result = file_put_contents($path, $json . PHP_EOL, LOCK_EX);
+
+    if ($result === false) {
+        throw new RuntimeException('Failed to save registration data.');
+    }
+}
+
+$registrations = load_registrations($dataFile);
+
+foreach ($registrations as $item) {
+    if (($item['id'] ?? '') === $registrationId) {
+        $registration = $item;
+        break;
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $registration !== null && ($registration['status'] ?? '') !== 'cancelled') {
+    foreach ($registrations as &$item) {
+        if (($item['id'] ?? '') === $registrationId) {
+            $item['status'] = 'cancelled';
+            $item['cancelled_at'] = date(DATE_ATOM);
+            $registration = $item;
+            $statusMessage = 'Registration canceled successfully.';
+            break;
+        }
+    }
+    unset($item);
+
+    save_registrations($dataFile, $registrations);
+}
+
+$isMissing = $registration === null;
+$isCancelled = !$isMissing && (($registration['status'] ?? '') === 'cancelled');
+$services = !$isMissing && isset($registration['services']) && is_array($registration['services']) ? $registration['services'] : [];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Registration Successful</title>
+  <title>Registration Status</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="style_header_footer.css" />
   <style>
@@ -14,17 +87,17 @@
     .success-page {
       min-height: calc(100vh - 96px);
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       box-sizing: border-box;
-      padding: 112px 20px 56px;
+      padding: 132px 20px 72px;
       background:
         radial-gradient(circle at top left, rgba(255, 90, 0, 0.16), transparent 32%),
         linear-gradient(180deg, #06070b 0%, #0f1118 100%);
     }
 
     .success-card {
-      width: min(520px, 100%);
+      width: min(620px, 100%);
       padding: 30px 26px;
       margin: 0 auto;
       border: 1px solid rgba(255, 90, 0, 0.18);
@@ -73,7 +146,7 @@
     }
 
     .success-text {
-      max-width: 420px;
+      max-width: 460px;
       margin: 0 auto 24px;
       color: rgba(255, 239, 228, 0.78);
       font-size: 1rem;
@@ -97,6 +170,7 @@
       text-decoration: none;
       font-weight: 700;
       transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      border: 0;
     }
 
     .success-btn.primary {
@@ -137,29 +211,34 @@
       transform: none;
     }
 
-    .success-card.is-cancelled {
+    .success-card.is-cancelled,
+    .success-card.is-missing {
       border-color: rgba(255, 107, 107, 0.28);
       background:
         linear-gradient(145deg, rgba(255, 107, 107, 0.12), rgba(255, 107, 107, 0.03) 42%),
         linear-gradient(180deg, #10131a 0%, #090b10 100%);
     }
 
-    .success-card.is-cancelled .success-kicker {
+    .success-card.is-cancelled .success-kicker,
+    .success-card.is-missing .success-kicker {
       background: rgba(255, 107, 107, 0.12);
       border-color: rgba(255, 107, 107, 0.24);
       color: #ffb4b4;
     }
 
-    .success-card.is-cancelled .success-dot {
+    .success-card.is-cancelled .success-dot,
+    .success-card.is-missing .success-dot {
       background: #ff6b6b;
       box-shadow: 0 0 16px rgba(255, 107, 107, 0.65);
     }
 
-    .success-card.is-cancelled .success-title span {
+    .success-card.is-cancelled .success-title span,
+    .success-card.is-missing .success-title span {
       color: #ff6b6b;
     }
 
-    .success-card.is-cancelled .success-check {
+    .success-card.is-cancelled .success-check,
+    .success-card.is-missing .success-check {
       background: #ff6b6b;
       box-shadow: 0 18px 36px rgba(255, 107, 107, 0.24);
     }
@@ -179,6 +258,35 @@
       color: #180d04;
     }
 
+    .success-meta {
+      margin: 24px 0;
+      padding: 18px;
+      border-radius: 20px;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .success-meta p {
+      margin: 0 0 12px;
+      color: rgba(255, 239, 228, 0.84);
+    }
+
+    .success-meta p:last-child {
+      margin-bottom: 0;
+    }
+
+    .status-message {
+      margin: 0 auto 18px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      max-width: 460px;
+      font-weight: 600;
+      background: rgba(255, 107, 107, 0.12);
+      border: 1px solid rgba(255, 107, 107, 0.24);
+      color: #ffd7d7;
+    }
+
     @keyframes pop-in {
       0% {
         transform: scale(0.65) rotate(-8deg);
@@ -194,7 +302,7 @@
     @media (max-width: 640px) {
       .success-page {
         min-height: calc(100vh - 88px);
-        padding: 100px 16px 40px;
+        padding: 108px 16px 48px;
       }
 
       .success-card {
@@ -226,23 +334,66 @@
   </header>
 
   <main class="success-page">
-    <section class="success-card" id="successCard">
-      <div class="success-check" id="successCheck" aria-hidden="true">&#10003;</div>
+    <section class="success-card<?= $isCancelled ? ' is-cancelled' : '' ?><?= $isMissing ? ' is-missing' : '' ?>">
+      <div class="success-check" aria-hidden="true"><?= $isMissing || $isCancelled ? '&#10005;' : '&#10003;' ?></div>
 
       <div class="success-kicker">
         <span class="success-dot"></span>
-        <span id="successKickerText">Team Registered</span>
+        <span>
+          <?php if ($isMissing): ?>
+            Registration Not Found
+          <?php elseif ($isCancelled): ?>
+            Registration Canceled
+          <?php else: ?>
+            Team Registered
+          <?php endif; ?>
+        </span>
       </div>
 
-      <h1 class="success-title" id="successTitle">Registration <span>Confirmed</span></h1>
-      <p class="success-text" id="successText">
-        Your team has been added successfully. We will contact you soon with the next steps.
+      <h1 class="success-title">
+        <?php if ($isMissing): ?>
+          Registration <span>Unavailable</span>
+        <?php elseif ($isCancelled): ?>
+          Registration <span>Canceled</span>
+        <?php else: ?>
+          Registration <span>Confirmed</span>
+        <?php endif; ?>
+      </h1>
+
+      <p class="success-text">
+        <?php if ($isMissing): ?>
+          We could not find a saved registration for this link. Try submitting the form again from the registration page.
+        <?php elseif ($isCancelled): ?>
+          This team registration has been canceled. You can go back and submit a new one whenever you are ready.
+        <?php else: ?>
+          Your team has been saved successfully. We will contact you soon with the next steps.
+        <?php endif; ?>
       </p>
+
+      <?php if ($statusMessage !== ''): ?>
+        <p class="status-message"><?= escape($statusMessage) ?></p>
+      <?php endif; ?>
+
+      <?php if (!$isMissing): ?>
+        <div class="success-meta">
+          <p><strong>University:</strong> <?= escape((string) ($registration['university_name'] ?? '')) ?></p>
+          <p><strong>Captain:</strong> <?= escape((string) ($registration['captain'] ?? '')) ?></p>
+          <p><strong>Category:</strong> <?= escape(ucfirst((string) ($registration['category'] ?? ''))) ?></p>
+          <p><strong>Roster Size:</strong> <?= escape((string) ($registration['roster_size'] ?? '')) ?></p>
+          <p><strong>Contact:</strong> <?= escape((string) ($registration['email'] ?? '')) ?> | <?= escape((string) ($registration['phone'] ?? '')) ?></p>
+          <p><strong>Optional Services:</strong> <?= escape($services === [] ? 'None requested' : implode(', ', $services)) ?></p>
+          <p><strong>Submitted:</strong> <?= escape((string) ($registration['submitted_at'] ?? '')) ?></p>
+        </div>
+      <?php endif; ?>
 
       <div class="success-actions">
         <a class="success-btn primary" href="home.html">Back to Home</a>
         <a class="success-btn secondary" href="register.html">Register Again</a>
-        <button class="success-btn danger" id="cancelRegistrationBtn" type="button">Cancel Registration</button>
+        <?php if (!$isMissing && !$isCancelled): ?>
+          <form method="post" action="success.php?id=<?= escape($registrationId) ?>" style="margin: 0;">
+            <button class="success-btn danger" type="submit">Cancel Registration</button>
+          </form>
+        <?php endif; ?>
       </div>
     </section>
   </main>
@@ -264,7 +415,7 @@
       <div class="footer-column">
         <h3>Contact Us</h3>
         <ul class="contact-info">
-          <li>Email <a href="https://mail.google.com/mail/u/6/#inbox" >volleycup.x@gmail.com</a></li>
+          <li>Email <a href="https://mail.google.com/mail/u/6/#inbox">volleycup.x@gmail.com</a></li>
           <li>Phone <a href="tel:+216123456789">+216 123 456 789</a></li>
           <li>Location <a href="https://maps.app.goo.gl/LzZDCpgUu3KXt3e27">ENSI - National School of Computer Science</a></li>
         </ul>
@@ -277,81 +428,5 @@
       </div>
     </div>
   </footer>
-
-  <script>
-    function playCancelSound() {
-      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-
-      if (!AudioContextClass) {
-        return;
-      }
-
-      const audioContext = new AudioContextClass();
-      const now = audioContext.currentTime;
-
-      function playWomp(startTime, startFrequency, endFrequency) {
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-
-        oscillator.type = "triangle";
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-
-        oscillator.frequency.setValueAtTime(startFrequency, startTime);
-        oscillator.frequency.exponentialRampToValueAtTime(endFrequency, startTime + 0.42);
-
-        gainNode.gain.setValueAtTime(0.0001, startTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.38, startTime + 0.03);
-        gainNode.gain.exponentialRampToValueAtTime(0.0001, startTime + 0.46);
-
-        oscillator.start(startTime);
-        oscillator.stop(startTime + 0.46);
-      }
-
-      playWomp(now, 160, 92);
-      playWomp(now + 0.44, 132, 72);
-
-      setTimeout(function() {
-        audioContext.close();
-      }, 1200);
-    }
-
-    function cancelRegistration() {
-      const successCard = document.getElementById("successCard");
-      const successCheck = document.getElementById("successCheck");
-      const successKickerText = document.getElementById("successKickerText");
-      const successTitle = document.getElementById("successTitle");
-      const successText = document.getElementById("successText");
-      const cancelButton = document.getElementById("cancelRegistrationBtn");
-
-      if (!successCard || !successCheck || !successKickerText || !successTitle || !successText || !cancelButton) {
-        return;
-      }
-
-      if (!window.confirm("Do you want to cancel this registration?")) {
-        return;
-      }
-
-      playCancelSound();
-      successCard.classList.add("is-cancelled");
-      successCheck.innerHTML = "&#10005;";
-      successKickerText.textContent = "Registration Canceled";
-      successTitle.innerHTML = "Registration <span>Canceled</span>";
-      successText.textContent = "Your registration has been canceled for this demo. You can return to the form and submit again at any time.";
-      cancelButton.disabled = true;
-      cancelButton.textContent = "Registration Canceled";
-    }
-
-    document.addEventListener("DOMContentLoaded", function() {
-      const cancelButton = document.getElementById("cancelRegistrationBtn");
-
-      if (!cancelButton) {
-        return;
-      }
-
-      cancelButton.addEventListener("click", cancelRegistration);
-    });
-  </script>
-
 </body>
 </html>

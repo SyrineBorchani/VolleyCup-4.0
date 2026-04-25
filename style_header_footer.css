@@ -1,6 +1,10 @@
 /* STRUCTURE GLOBALE */
-html, body {
-    height: 100%;
+html {
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
@@ -9,7 +13,7 @@ html, body {
 
 /* Le "main" occupe tout l'espace disponible pour pousser le footer en bas */
 main {
-    flex: 1;
+    flex: 1 0 auto;
 }
 
 .container {
