@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register Your Team</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style_header_footer.css" />
+</head>
+<body>
+  <header class="main-header"> 
+        <div class="container">
+            <div class="header-logo">
+                Volley<span>Cup</span> 4.0
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="schedule.html">Schedule</a></li>
+                    <li><a href="teams.html">Teams</a></li>
+                    <li><a href="register.html" class="btn-register">Register</a></li>
+                </ul>
+            </nav>
+        </div>  
+  </header>
+<main>
+<div class="page">
+  <img src="src/assets/images/volleyball.png" class="floating-ball" alt="volleyball">
+
+  <h1>Register Your Team</h1>
+  <p class="subtitle">
+    Secure your university's spot in the premier collegiate volleyball tournament
+  </p>
+
+  <div class="card">
+    <h2>University Team Registration</h2>
+    <p class="card-subtitle">
+      Fill in your team details to register for VolleyCup 2026
+    </p>
+
+    <p id="serverMessage" class="server-message" style="display: none; margin: 0 0 20px; padding: 14px 16px; border-radius: 14px; background: rgba(255, 107, 107, 0.12); border: 1px solid rgba(255, 107, 107, 0.32); color: #ffd7d7; font-weight: 600;"></p>
+
+    <form class="form" id="registrationForm" method="post" action="submit_registration.php" novalidate>
+      <div class="grid-2">
+        <div class="field">
+          <label for="uniName">University Name</label>
+          <input id="uniName" name="uniName" type="text" placeholder="Enter university name" required>
+          <p class="field-error" data-error-for="uniName" style="color: #ff4d4f; font-size: 0.9rem; margin-top: 6px; min-height: 20px; font-weight: 600;"></p>
+        </div>
+
+        <div class="field">
+          <label for="captain">Team Captain</label>
+          <input id="captain" name="captain" type="text" placeholder="Captain name" required>
+          <p class="field-error" data-error-for="captain" style="color: #ff4d4f; font-size: 0.9rem; margin-top: 6px; min-height: 20px; font-weight: 600;"></p>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <label for="roster">Roster Size</label>
+          <input id="roster" name="roster" type="number" min="1" placeholder="Number of players" required>
+          <p class="field-error" data-error-for="roster" style="color: #ff4d4f; font-size: 0.9rem; margin-top: 6px; min-height: 20px; font-weight: 600;"></p>
+        </div>
+
+        <div class="field">
+          <label for="email">Team Contact Email</label>
+          <input id="email" name="email" type="email" placeholder="athletics@university.edu" required>
+          <p class="field-error" data-error-for="email" style="color: #ff4d4f; font-size: 0.9rem; margin-top: 6px; min-height: 20px; font-weight: 600;"></p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="field">
+          <label for="phone">Contact Phone</label>
+          <input id="phone" name="phone" type="tel" placeholder="(+216) 12 345 678" required>
+          <p class="field-error" data-error-for="phone" style="color: #ff4d4f; font-size: 0.9rem; margin-top: 6px; min-height: 20px; font-weight: 600;"></p>
+        </div>
+
+        <div class="field">
+          <label>Team Category</label>
+          <div class="choice-row">
+            <label class="choice">
+              <input type="radio" name="category" value="men" checked>
+              <span>Men</span>
+            </label>
+
+            <label class="choice">
+              <input type="radio" name="category" value="women">
+              <span>Women</span>
+            </label>
+
+            <label class="choice">
+              <input type="radio" name="category" value="mixed">
+              <span>Mixed</span>
+            </label>
+          </div>
+          <p class="field-error" data-error-for="category" style="color: #ff4d4f; font-size: 0.9rem; margin-top: 6px; min-height: 20px; font-weight: 600;"></p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Optional Services</label>
+        <div class="choice-column">
+          <label class="choice">
+            <input type="checkbox" name="services[]" value="practice">
+            <span>Request practice session slot</span>
+          </label>
+
+          <label class="choice">
+            <input type="checkbox" name="services[]" value="transport">
+            <span>Request transportation assistance</span>
+          </label>
+
+          <label class="choice">
+            <input type="checkbox" name="services[]" value="photos">
+            <span>Request official team photos</span>
+          </label>
+        </div>
+        <p class="field-error" data-error-for="services" style="color: #ff4d4f; font-size: 0.9rem; margin-top: 6px; min-height: 20px; font-weight: 600;"></p>
+      </div>
+
+      <div class="field">
+        <label for="comments">Comments</label>
+        <textarea id="comments" name="comments" rows="5" placeholder="Write any additional notes or requests here..." style="width: 100%; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 14px 16px; background: rgba(255,255,255,0.04); color: #f3f5ff; resize: vertical; font: inherit;"></textarea>
+        <p class="field-error" data-error-for="comments" style="color: #ff4d4f; font-size: 0.9rem; margin-top: 6px; min-height: 20px; font-weight: 600;"></p>
+      </div>
+
+      <div class="form-actions">
+        <button class="submit" id="submitButton" type="submit">Submit Registration</button>
+        <button class="reset" id="resetButton" type="button">Reset Form</button>
+      </div>
+
+      <p class="fee">
+        Registration fee: <b>70 DT</b> per team. Payment details will be sent after submission.
+      </p>
+
+    </form>
+  </div>
+</div>
+</main>
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <div class="footer-logo">Volley<span>Cup</span> 4.0</div>
+                <p class="footer-description">
+                    The premier intercollegiate volleyball
+                    tournament bringing universities
+                    together since 2023.
+                </p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <ul class="contact-info">
+                    <li>📧 <a href="https://mail.google.com/mail/u/6/#inbox">
+                            volleycup.x@gmail.com 
+                            </a>
+                    </li>
+                    <li>📞 <a href="tel:+216123456789"> 
+                             +216 123 456 789
+                            </a>
+                    </li>
+                    <li>📍<a href="https://maps.app.goo.gl/LzZDCpgUu3KXt3e27">  
+                           ENSI - National School of Computer Science
+                           </a>
+                    </li>
+                </ul>
+            </div>
+            <hr class="footer-divider">
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 <strong>VolleyCup</strong>. All rights reserved.</p>
+                <p>Designed for the University Tournament.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="src/js/register.js"></script>
+</body>
+</html>
