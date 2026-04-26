@@ -116,3 +116,73 @@ function volleycup_cancel_registration(string $registrationId): ?array
 
     return volleycup_find_registration($registrationId);
 }
+
+function volleycup_find_latest_registration(): ?array
+{
+    $statement = volleycup_database()->query(
+        'SELECT id, university_name, captain, roster_size, email, phone, category, services_json, comments, status, submitted_at, cancelled_at
+         FROM registrations
+         ORDER BY submitted_at DESC, id DESC
+         LIMIT 1'
+    );
+    $row = $statement->fetch();
+
+    if (!is_array($row)) {
+        return null;
+    }
+
+    return volleycup_decode_registration($row);
+}
+
+function volleycup_update_registration(string $registrationId, array $data): ?array
+{
+    $registration = volleycup_find_registration($registrationId);
+
+    if ($registration === null) {
+        return null;
+    }
+
+    $statement = volleycup_database()->prepare(
+        'UPDATE registrations
+         SET university_name = :university_name,
+             captain = :captain,
+             roster_size = :roster_size,
+             email = :email,
+             phone = :phone,
+             category = :category,
+             services_json = :services_json,
+             comments = :comments,
+             status = :status,
+             submitted_at = :submitted_at,
+             cancelled_at = :cancelled_at
+         WHERE id = :id'
+    );
+
+    $statement->execute([
+        'id' => $registrationId,
+        'university_name' => $data['university_name'],
+        'captain' => $data['captain'],
+        'roster_size' => $data['roster_size'],
+        'email' => $data['email'],
+        'phone' => $data['phone'],
+        'category' => $data['category'],
+        'services_json' => json_encode($data['services'], JSON_UNESCAPED_SLASHES),
+        'comments' => $data['comments'],
+        'status' => $data['status'],
+        'submitted_at' => $data['submitted_at'],
+        'cancelled_at' => $data['cancelled_at'],
+    ]);
+
+    return volleycup_find_registration($registrationId);
+}
+
+function volleycup_delete_registration(string $registrationId): bool
+{
+    $statement = volleycup_database()->prepare(
+        'DELETE FROM registrations
+         WHERE id = :id'
+    );
+    $statement->execute(['id' => $registrationId]);
+
+    return $statement->rowCount() > 0;
+}
