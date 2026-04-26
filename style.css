@@ -396,17 +396,6 @@ h1{
   cursor: pointer;
 }
 
-.gallery-demo-note{
-  margin-top: 20px;
-  font-size: 16px;
-  color: #5a6775;
-}
-
-.gallery-demo-note code{
-  color: #ff5a00;
-  font-weight: 700;
-}
-
 /* ================= ABOUT US ================= */
 .aboutus{
   background: #fff;
@@ -910,7 +899,7 @@ button.reset:active {
 }
 /* ================= TEAMS FEATURES ================= */
 
-/* Live Ticker */
+
 .live-ticker {
   display: flex;
   align-items: center;
@@ -996,7 +985,6 @@ button.reset:active {
   margin-left: 8px;
 }
 
-/* Spotlight Toggle Pill */
 .spotlight-toggle-wrap {
   display: flex;
   justify-content: flex-end;

@@ -1,70 +1,29 @@
 <?php
 declare(strict_types=1);
 
-$dataFile = __DIR__ . '/data/registrations.json';
+require_once __DIR__ . '/includes/registration_repository.php';
+
 $registrationId = isset($_GET['id']) ? trim((string) $_GET['id']) : '';
 $registration = null;
 $statusMessage = '';
+$storageUnavailable = false;
 
 function escape(?string $value): string
 {
     return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 }
 
-function load_registrations(string $path): array
-{
-    if (!file_exists($path)) {
-        return [];
+try {
+    $registration = $registrationId !== '' ? volleycup_find_registration($registrationId) : null;
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $registration !== null && ($registration['status'] ?? '') !== 'cancelled') {
+        $registration = volleycup_cancel_registration($registrationId);
+        $statusMessage = 'Registration canceled successfully.';
     }
-
-    $json = file_get_contents($path);
-
-    if ($json === false || trim($json) === '') {
-        return [];
-    }
-
-    $decoded = json_decode($json, true);
-
-    return is_array($decoded) ? $decoded : [];
-}
-
-function save_registrations(string $path, array $registrations): void
-{
-    $json = json_encode($registrations, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-
-    if ($json === false) {
-        throw new RuntimeException('Failed to encode registration data.');
-    }
-
-    $result = file_put_contents($path, $json . PHP_EOL, LOCK_EX);
-
-    if ($result === false) {
-        throw new RuntimeException('Failed to save registration data.');
-    }
-}
-
-$registrations = load_registrations($dataFile);
-
-foreach ($registrations as $item) {
-    if (($item['id'] ?? '') === $registrationId) {
-        $registration = $item;
-        break;
-    }
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $registration !== null && ($registration['status'] ?? '') !== 'cancelled') {
-    foreach ($registrations as &$item) {
-        if (($item['id'] ?? '') === $registrationId) {
-            $item['status'] = 'cancelled';
-            $item['cancelled_at'] = date(DATE_ATOM);
-            $registration = $item;
-            $statusMessage = 'Registration canceled successfully.';
-            break;
-        }
-    }
-    unset($item);
-
-    save_registrations($dataFile, $registrations);
+} catch (Throwable $exception) {
+    $storageUnavailable = true;
+    $registration = null;
+    $statusMessage = 'The registration database is unavailable right now. Please check XAMPP and try again.';
 }
 
 $isMissing = $registration === null;
@@ -361,7 +320,9 @@ $services = !$isMissing && isset($registration['services']) && is_array($registr
       </h1>
 
       <p class="success-text">
-        <?php if ($isMissing): ?>
+        <?php if ($storageUnavailable): ?>
+          We could not connect to the registration database right now. Start Apache and MySQL in XAMPP, then try again.
+        <?php elseif ($isMissing): ?>
           We could not find a saved registration for this link. Try submitting the form again from the registration page.
         <?php elseif ($isCancelled): ?>
           This team registration has been canceled. You can go back and submit a new one whenever you are ready.

@@ -219,7 +219,7 @@ async function submitForm(form) {
 
     window.location.href = "success.php?id=" + encodeURIComponent(result.registrationId);
   } catch (error) {
-    setServerMessage("The registration service is unavailable right now. Make sure the PHP server is running.");
+    setServerMessage("The registration service is unavailable right now. Make sure Apache and MySQL are running in XAMPP.");
   } finally {
     submitButton.disabled = false;
     submitButton.textContent = "Submit Registration";
@@ -246,9 +246,8 @@ function handleSubmit(event) {
     return;
   }
 
-  playTransitionSound(function() {
-    submitForm(form);
-  });
+  playTransitionSound(function() {});
+  submitForm(form);
 }
 
 function attachLiveValidation() {

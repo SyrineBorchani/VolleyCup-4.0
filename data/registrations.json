@@ -28,5 +28,64 @@
         "status": "cancelled",
         "submitted_at": "2026-04-25T10:25:01+00:00",
         "cancelled_at": "2026-04-25T10:25:01+00:00"
+    },
+    {
+        "id": "f808f3e2c2b9bec7",
+        "university_name": "ENSI",
+        "captain": "Syrine",
+        "roster_size": 10,
+        "email": "syrine.borchani@ensi-uma.tn",
+        "phone": "25938332",
+        "category": "mixed",
+        "services": [],
+        "comments": "",
+        "status": "cancelled",
+        "submitted_at": "2026-04-26T10:40:05+02:00",
+        "cancelled_at": "2026-04-26T10:49:41+02:00"
+    },
+    {
+        "id": "9e5d08759d393a2e",
+        "university_name": "ENSI",
+        "captain": "Syrine",
+        "roster_size": 10,
+        "email": "syrine.borchani@ensi-uma.tn",
+        "phone": "25938332",
+        "category": "mixed",
+        "services": [],
+        "comments": "",
+        "status": "confirmed",
+        "submitted_at": "2026-04-26T10:50:03+02:00"
+    },
+    {
+        "id": "02b9942f19198a8e",
+        "university_name": "Codex Test University",
+        "captain": "Debug Captain",
+        "roster_size": 8,
+        "email": "debug@example.com",
+        "phone": "+21612345678",
+        "category": "mixed",
+        "services": [
+            "practice",
+            "photos"
+        ],
+        "comments": "Debug submission",
+        "status": "confirmed",
+        "submitted_at": "2026-04-26T10:52:51+02:00"
+    },
+    {
+        "id": "aae4e62e6b6915e9",
+        "university_name": "ENSI",
+        "captain": "Syrine",
+        "roster_size": 9,
+        "email": "syrine.borchani@ensi-uma.tn",
+        "phone": "25938332",
+        "category": "mixed",
+        "services": [
+            "transport",
+            "photos"
+        ],
+        "comments": "",
+        "status": "confirmed",
+        "submitted_at": "2026-04-26T10:54:41+02:00"
     }
 ]

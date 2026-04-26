@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-header('Content-Type: application/json; charset=UTF-8');
+require_once __DIR__ . '/includes/registration_repository.php';
 
-$dataFile = __DIR__ . '/data/registrations.json';
+header('Content-Type: application/json; charset=UTF-8');
 
 function normalize_text(string $value): string
 {
@@ -64,38 +64,6 @@ function validate_registration(array $input): array
     return $errors;
 }
 
-function load_registrations(string $path): array
-{
-    if (!file_exists($path)) {
-        return [];
-    }
-
-    $json = file_get_contents($path);
-
-    if ($json === false || trim($json) === '') {
-        return [];
-    }
-
-    $decoded = json_decode($json, true);
-
-    return is_array($decoded) ? $decoded : [];
-}
-
-function save_registrations(string $path, array $registrations): void
-{
-    $json = json_encode($registrations, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-
-    if ($json === false) {
-        throw new RuntimeException('Failed to encode registration data.');
-    }
-
-    $result = file_put_contents($path, $json . PHP_EOL, LOCK_EX);
-
-    if ($result === false) {
-        throw new RuntimeException('Failed to save registration data.');
-    }
-}
-
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     echo json_encode([
@@ -131,11 +99,7 @@ if ($errors !== []) {
 }
 
 try {
-    $registrations = load_registrations($dataFile);
-
-    $registrationId = bin2hex(random_bytes(8));
-    $registrations[] = [
-        'id' => $registrationId,
+    $registrationId = volleycup_create_registration([
         'university_name' => $formData['uniName'],
         'captain' => $formData['captain'],
         'roster_size' => (int) $formData['roster'],
@@ -145,10 +109,7 @@ try {
         'services' => $formData['services'],
         'comments' => $formData['comments'],
         'status' => 'confirmed',
-        'submitted_at' => date(DATE_ATOM),
-    ];
-
-    save_registrations($dataFile, $registrations);
+    ]);
 
     echo json_encode([
         'ok' => true,

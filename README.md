@@ -1,20 +1,6 @@
 # VolleyCup 4.0
 
-> The official website for the premier intercollegiate volleyball tournament at ENSI, built with HTML, CSS, and a PHP registration flow.
-
----
-
-## Preview
-
-| Home | Schedule | Register | Teams |
-|------|----------|----------|-------|
-| Hero section with full-screen background, stats, and gallery | Single-day tournament timeline with highlighted events | PHP-backed registration form with validation and saved submissions | Featured university teams |
-
----
-
-## About The Project
-
-VolleyCup 4.0 is the official website for a university volleyball tournament organized at ENSI (National School of Computer Science), Tunisia. The site gives students and university teams everything they need, from discovering the event and viewing the schedule to registering their team online.
+> The official website for the premier intercollegiate volleyball tournament at ENSI, built with HTML, CSS, and a PHP/MySQL registration flow.
 
 ---
 
@@ -35,6 +21,7 @@ VolleyCup 4.0 is the official website for a university volleyball tournament org
 - HTML5
 - CSS3
 - PHP
+- MySQL
 
 ---
 
@@ -49,8 +36,10 @@ volleycup/
 |-- success.php
 |-- submit_registration.php
 |-- add_test_team.php
-|-- data/
-|   |-- registrations.json
+|-- config/
+|   `-- database.php
+|-- includes/
+|   `-- registration_repository.php
 |-- src/
 |   |-- assets/
 |   |   |-- images/
@@ -74,15 +63,27 @@ volleycup/
 
 ## Getting Started
 
-Run the project with PHP's built-in development server:
+Run the project through Apache and MySQL in XAMPP:
 
 ```bash
 git clone https://github.com/your-username/volleycup.git
 cd volleycup
-php -S localhost:8000
 ```
 
-Then open [http://localhost:8000/home.html](http://localhost:8000/home.html).
+1. Create a MySQL database named `volleycup4.0` in phpMyAdmin.
+2. Make sure Apache and MySQL are running in XAMPP.
+3. Serve this folder from XAMPP, by placing it inside `htdocs`.
+4. Open `http://localhost/VolleyCup-4.0/home.html` if the folder is inside `htdocs`, or the matching local URL for your Apache setup.
+
+Optional environment variables if you are not using the default XAMPP credentials:
+
+```bash
+VOLLEYCUP_DB_HOST=127.0.0.1
+VOLLEYCUP_DB_PORT=3306
+VOLLEYCUP_DB_NAME=volleycup4.0
+VOLLEYCUP_DB_USER=root
+VOLLEYCUP_DB_PASS=
+```
 
 Note: the PHP registration flow will not work if you only double-click the files and open them directly from disk.
 
@@ -92,19 +93,9 @@ Note: the PHP registration flow will not work if you only double-click the files
 
 - Full-screen landing page with event highlights
 - Schedule page for tournament day planning
-- Static registration page with a PHP submission endpoint
-- Registrations saved locally in `data/registrations.json`
+- Team registration form with PHP validation
+- Registrations saved in MySQL through XAMPP
 - Confirmation page with saved submission details
 - Registration cancellation flow
-
----
-
-## Team
-
-| Name | Role |
-|------|------|
-| Syrine Borchani | Co-organizer and Developer |
-| Mohamed Mokhtar Khaled | Co-organizer and Developer |
-| Lamiss Dachraoui | Co-organizer and Developer |
 
 ---
