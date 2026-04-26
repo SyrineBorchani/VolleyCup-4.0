@@ -98,6 +98,17 @@ function validateField(field) {
         return "Please enter at least 3 characters.";
       }
       break;
+    case "teamName":
+      if (!value) {
+        return "This field is required.";
+      }
+      if (value.length < 3) {
+        return "Please enter at least 3 characters.";
+      }
+      if (value.length > 30) {
+        return "Team name must be under 30 characters.";
+      }
+      break;
     case "roster":
       if (!value) {
         return "This field is required.";

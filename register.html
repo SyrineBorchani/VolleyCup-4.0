@@ -43,6 +43,20 @@
     <form class="form" id="registrationForm" method="post" action="submit_registration.php" novalidate>
       <div class="grid-2">
         <div class="field">
+         <label for="teamName">Team Name</label>
+          <input id="teamName" name="teamName" type="text" placeholder="Enter your team name" required>
+          <p class="field-error" data-error-for="teamName" style="color: #ff4d4f; font-size: 0.9rem; margin-top: 6px; min-height: 20px; font-weight: 600;"></p>
+        </div>
+        
+        <div class="field">
+          <label for="roster">Roster Size</label>
+          <input id="roster" name="roster" type="number" min="1" placeholder="Number of players" required>
+          <p class="field-error" data-error-for="roster" style="color: #ff4d4f; font-size: 0.9rem; margin-top: 6px; min-height: 20px; font-weight: 600;"></p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="field">
           <label for="uniName">University Name</label>
           <input id="uniName" name="uniName" type="text" placeholder="Enter university name" required>
           <p class="field-error" data-error-for="uniName" style="color: #ff4d4f; font-size: 0.9rem; margin-top: 6px; min-height: 20px; font-weight: 600;"></p>
@@ -54,11 +68,12 @@
           <p class="field-error" data-error-for="captain" style="color: #ff4d4f; font-size: 0.9rem; margin-top: 6px; min-height: 20px; font-weight: 600;"></p>
         </div>
       </div>
+      
       <div class="grid-2">
         <div class="field">
-          <label for="roster">Roster Size</label>
-          <input id="roster" name="roster" type="number" min="1" placeholder="Number of players" required>
-          <p class="field-error" data-error-for="roster" style="color: #ff4d4f; font-size: 0.9rem; margin-top: 6px; min-height: 20px; font-weight: 600;"></p>
+          <label for="phone">Contact Phone</label>
+          <input id="phone" name="phone" type="tel" placeholder="(+216) 12 345 678" required>
+          <p class="field-error" data-error-for="phone" style="color: #ff4d4f; font-size: 0.9rem; margin-top: 6px; min-height: 20px; font-weight: 600;"></p>
         </div>
 
         <div class="field">
@@ -69,11 +84,7 @@
       </div>
 
       <div class="grid-2">
-        <div class="field">
-          <label for="phone">Contact Phone</label>
-          <input id="phone" name="phone" type="tel" placeholder="(+216) 12 345 678" required>
-          <p class="field-error" data-error-for="phone" style="color: #ff4d4f; font-size: 0.9rem; margin-top: 6px; min-height: 20px; font-weight: 600;"></p>
-        </div>
+        
 
         <div class="field">
           <label>Team Category</label>
