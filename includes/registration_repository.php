@@ -10,6 +10,7 @@ function volleycup_decode_registration(array $row): array
     return [
         'id' => (string) ($row['id'] ?? ''),
         'university_name' => (string) ($row['university_name'] ?? ''),
+        'team_name' => (string) ($row['team_name'] ?? ''),
         'captain' => (string) ($row['captain'] ?? ''),
         'roster_size' => (int) ($row['roster_size'] ?? 0),
         'email' => (string) ($row['email'] ?? ''),
@@ -26,7 +27,7 @@ function volleycup_decode_registration(array $row): array
 function volleycup_find_registration(string $registrationId): ?array
 {
     $statement = volleycup_database()->prepare(
-        'SELECT id, university_name, captain, roster_size, email, phone, category, services_json, comments, status, submitted_at, cancelled_at
+        'SELECT id, university_name, team_name, captain, roster_size, email, phone, category, services_json, comments, status, submitted_at, cancelled_at
          FROM registrations
          WHERE id = :id
          LIMIT 1'
@@ -50,6 +51,7 @@ function volleycup_create_registration(array $data): string
         'INSERT INTO registrations (
             id,
             university_name,
+            team_name,
             captain,
             roster_size,
             email,
@@ -63,6 +65,7 @@ function volleycup_create_registration(array $data): string
         ) VALUES (
             :id,
             :university_name,
+            :team_name,
             :captain,
             :roster_size,
             :email,
@@ -79,6 +82,7 @@ function volleycup_create_registration(array $data): string
     $statement->execute([
         'id' => $registrationId,
         'university_name' => $data['university_name'],
+        'team_name' => $data['team_name'],
         'captain' => $data['captain'],
         'roster_size' => $data['roster_size'],
         'email' => $data['email'],
@@ -120,7 +124,7 @@ function volleycup_cancel_registration(string $registrationId): ?array
 function volleycup_find_latest_registration(): ?array
 {
     $statement = volleycup_database()->query(
-        'SELECT id, university_name, captain, roster_size, email, phone, category, services_json, comments, status, submitted_at, cancelled_at
+        'SELECT id, university_name, team_name, captain, roster_size, email, phone, category, services_json, comments, status, submitted_at, cancelled_at
          FROM registrations
          ORDER BY submitted_at DESC, id DESC
          LIMIT 1'
@@ -145,6 +149,7 @@ function volleycup_update_registration(string $registrationId, array $data): ?ar
     $statement = volleycup_database()->prepare(
         'UPDATE registrations
          SET university_name = :university_name,
+             team_name = :team_name,
              captain = :captain,
              roster_size = :roster_size,
              email = :email,
@@ -161,6 +166,7 @@ function volleycup_update_registration(string $registrationId, array $data): ?ar
     $statement->execute([
         'id' => $registrationId,
         'university_name' => $data['university_name'],
+        'team_name' => $data['team_name'],
         'captain' => $data['captain'],
         'roster_size' => $data['roster_size'],
         'email' => $data['email'],

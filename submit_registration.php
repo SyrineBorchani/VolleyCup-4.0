@@ -22,7 +22,11 @@ function validate_registration(array $input): array
     if ($input['uniName'] === '' || string_length($input['uniName']) < 3) {
         $errors['uniName'] = 'Please enter a university name with at least 3 characters.';
     }
-
+    if ($input['teamName'] === '' || string_length($input['teamName']) < 3) {
+    $errors['teamName'] = 'Please enter a team name with at least 3 characters.';
+    } elseif (string_length($input['teamName']) > 30) {
+        $errors['teamName'] = 'Team name must be under 30 characters.';
+    }
     if ($input['captain'] === '' || string_length($input['captain']) < 3) {
         $errors['captain'] = 'Please enter a captain name with at least 3 characters.';
     }
@@ -75,6 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 $formData = [
     'uniName' => normalize_text($_POST['uniName'] ?? ''),
+    'teamName' => normalize_text($_POST['teamName'] ?? ''),
     'captain' => normalize_text($_POST['captain'] ?? ''),
     'roster' => trim((string) ($_POST['roster'] ?? '')),
     'email' => trim((string) ($_POST['email'] ?? '')),
@@ -101,6 +106,7 @@ if ($errors !== []) {
 try {
     $registrationId = volleycup_create_registration([
         'university_name' => $formData['uniName'],
+        'team_name' => $formData['teamName'],
         'captain' => $formData['captain'],
         'roster_size' => (int) $formData['roster'],
         'email' => $formData['email'],

@@ -7,6 +7,7 @@ try {
     $registrationId = volleycup_create_registration([
         'university_name' => 'VolleyCup Test University',
         'captain' => 'Test Captain',
+        'team_name'  => 'Test Spikers',
         'roster_size' => 8,
         'email' => 'test-team@volleycup.local',
         'phone' => '+216 11 111 111',

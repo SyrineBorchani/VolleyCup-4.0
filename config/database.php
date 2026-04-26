@@ -37,6 +37,7 @@ function volleycup_database(): PDO
         'CREATE TABLE IF NOT EXISTS registrations (
             id VARCHAR(32) PRIMARY KEY,
             university_name VARCHAR(255) NOT NULL,
+            team_name VARCHAR(255) NOT NULL,
             captain VARCHAR(255) NOT NULL,
             roster_size TINYINT UNSIGNED NOT NULL,
             email VARCHAR(255) NOT NULL,

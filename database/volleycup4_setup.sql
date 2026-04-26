@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS `registrations` (
   `id` VARCHAR(32) NOT NULL,
   `university_name` VARCHAR(255) NOT NULL,
   `captain` VARCHAR(255) NOT NULL,
+  `team_name` VARCHAR(255) NOT NULL,
   `roster_size` TINYINT UNSIGNED NOT NULL,
   `email` VARCHAR(255) NOT NULL,
   `phone` VARCHAR(50) NOT NULL,

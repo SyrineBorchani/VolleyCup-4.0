@@ -37,6 +37,7 @@ try {
     $updated = volleycup_update_registration($registration['id'], [
         'university_name' => request_value('uni', 'VolleyCup Updated University'),
         'captain' => request_value('captain', 'Updated Captain'),
+        'team_name'  => request_value('teamName', 'Updated Spikers'),
         'roster_size' => max(6, min(15, (int) request_value('roster', '10'))),
         'email' => request_value('email', 'updated-registration@volleycup.local'),
         'phone' => request_value('phone', '+216 33 333 333'),

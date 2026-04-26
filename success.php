@@ -337,6 +337,7 @@ $services = !$isMissing && isset($registration['services']) && is_array($registr
 
       <?php if (!$isMissing): ?>
         <div class="success-meta">
+          <p><strong>Team Name:</strong> <?= escape((string) ($registration['team_name'] ?? '')) ?></p>
           <p><strong>University:</strong> <?= escape((string) ($registration['university_name'] ?? '')) ?></p>
           <p><strong>Captain:</strong> <?= escape((string) ($registration['captain'] ?? '')) ?></p>
           <p><strong>Category:</strong> <?= escape(ucfirst((string) ($registration['category'] ?? ''))) ?></p>
