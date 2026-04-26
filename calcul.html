@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<input id="calc" type="text">
+
+<br><br>
+
+<button onclick="ajouter('1')">1</button>
+<button onclick="ajouter('2')">2</button>
+<button onclick="ajouter('3')">3</button>
+<button onclick="ajouter('+')">+</button>
+
+<br>
+
+<button onclick="ajouter('4')">4</button>
+<button onclick="ajouter('5')">5</button>
+<button onclick="ajouter('6')">6</button>
+<button onclick="ajouter('-')">-</button>
+
+<br>
+
+<button onclick="ajouter('7')">7</button>
+<button onclick="ajouter('8')">8</button>
+<button onclick="ajouter('9')">9</button>
+<button onclick="ajouter('*')">*</button>
+
+<br>
+
+<button onclick="ajouter('0')">0</button>
+<button onclick="ajouter('/')">/</button>
+<button onclick="calculer()">=</button>
+<button onclick="effacer()">C</button>
+
+<script>
+function ajouter(val) {
+    document.getElementById("calc").value += val;
+}
+
+function calculer() {
+    document.getElementById("calc").value =
+        eval(document.getElementById("calc").value);
+}
+
+function effacer() {
+    document.getElementById("calc").value = "";
+}
+</script>
+
+</body>
+</html>
