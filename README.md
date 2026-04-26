@@ -87,28 +87,6 @@ VOLLEYCUP_DB_USER=root
 VOLLEYCUP_DB_PASS=
 ```
 
-Note: the PHP registration flow will not work if you only double-click the files and open them directly from disk.
-
-## Friend Setup
-
-If a teammate wants the project to work on their own computer at home:
-
-1. Install XAMPP.
-2. Copy this project into `xampp/htdocs/VolleyCup-4.0`.
-3. Start Apache and MySQL in XAMPP.
-4. Open phpMyAdmin and import [database/volleycup4_setup.sql](/D:/Web/VolleyCup-4.0/database/volleycup4_setup.sql).
-5. Open `http://localhost/VolleyCup-4.0/register.html`.
-
-This project is already configured for the usual XAMPP defaults:
-
-- MySQL host: `127.0.0.1`
-- MySQL port: `3306`
-- Database: `volleycup4.0`
-- User: `root`
-- Password: empty
-
----
-
 ## Features
 
 - Full-screen landing page with event highlights
