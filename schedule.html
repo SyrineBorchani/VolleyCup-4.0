@@ -10,10 +10,9 @@
 
   <style>
     
-    /* push content below both fixed bars */
     .schedule-page { margin-top: 110px !important; }
 
-    /* ── Toast ── */
+    
     #vc-toast {
       position: fixed;
       bottom: 32px;
@@ -35,7 +34,7 @@
     #vc-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
     #vc-toast span { color: #ff5a00; }
 
-    /* ── Day progress bar ── */
+    
     #day-progress-wrap { margin-bottom: 22px; }
     #day-progress-label {
       font-size: 13px;
@@ -60,7 +59,7 @@
       transition: width 1.2s cubic-bezier(.4,0,.2,1);
     }
 
-    /* ── Row slide-in on load ── */
+   
     .event-table tbody tr {
       opacity: 0;
       transform: translateX(-18px);
@@ -71,7 +70,7 @@
       transform: translateX(0);
     }
 
-    /* ── Row hover sweep bar ── */
+    
     .event-table tbody tr { position: relative; cursor: default; }
     .row-bar {
       position: absolute;
@@ -84,7 +83,7 @@
     }
     .event-table tbody tr:hover .row-bar { width: 100%; }
 
-    /* ── Copy button ── */
+   
     .copy-btn {
       display: inline-block;
       margin-left: 8px;
@@ -97,13 +96,13 @@
     }
     tr:hover .copy-btn { opacity: 1; }
 
-    /* ── Cell flash on copy ── */
+    
     td.flash {
       background: rgba(255,90,0,.18) !important;
       transition: background .4s ease;
     }
 
-    /* ── Pulse dot on highlight rows ── */
+    
     .live-dot {
       display: inline-block;
       width: 8px; height: 8px;
@@ -118,7 +117,7 @@
       50%      { box-shadow: 0 0 0 7px rgba(255,90,0,0); }
     }
 
-    /* ── Active "now" row glow ── */
+   
     .event-table tbody tr.now-row {
       background: rgba(255,90,0,.06) !important;
       outline: 2px solid rgba(255,90,0,.3);
@@ -143,7 +142,7 @@
       50%      { opacity: .5; }
     }
 
-    /* ── Hero h1 letter-by-letter reveal ── */
+    
     .schedule-hero h1 .letter {
       display: inline-block;
       opacity: 0;
@@ -154,7 +153,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── Stats strip ── */
+    
     .sched-stats {
       display: flex;
       gap: 16px;
@@ -185,7 +184,7 @@
       letter-spacing: .06em;
     }
 
-    /* ── Search filter ── */
+    
     .sched-search-wrap {
       margin-bottom: 18px;
       position: relative;
@@ -241,7 +240,7 @@
     </div>
   </header>
 
-  <!-- Live countdown banner -->
+  
   <div id="countdown-banner">
     🏐 VolleyCup 4.0 &mdash;
     <span id="cd-d">--</span>d
@@ -260,14 +259,14 @@
         <p class="hero-sub">A full day of intense competition, sportsmanship &amp; celebration</p>
       </div>
 
-      <!-- Quick stats strip -->
+      
       <div class="sched-stats" id="schedStats">
         <div class="sched-stat"><span class="s-num" id="stat-events">0</span><span class="s-lbl">Events</span></div>
         <div class="sched-stat"><span class="s-num" id="stat-courts">0</span><span class="s-lbl">Courts</span></div>
         <div class="sched-stat"><span class="s-num" id="stat-hours">0h</span><span class="s-lbl">Duration</span></div>
       </div>
 
-      <!-- Day progress bar -->
+      
       <div id="day-progress-wrap">
         <div id="day-progress-label">
           <span id="progress-text">Tournament Day Progress</span>
@@ -284,7 +283,7 @@
         <span class="day-date">December 5, 2026 · ENSI</span>
       </div>
 
-      <!-- Search / filter -->
+      
       <div class="sched-search-wrap">
         <span class="search-icon">🔍</span>
         <input id="schedSearch" type="text" placeholder="Search events or locations…">
@@ -394,13 +393,13 @@
     </div>
   </footer>
 
-  <!-- Toast notification -->
+ 
   <div id="vc-toast"></div>
 
   <script>
   (() => {
 
-    /* ─── Toast helper ─── */
+    
     const toast = document.getElementById('vc-toast');
     let toastTimer;
     function showToast(html, duration = 3000) {
@@ -410,7 +409,7 @@
       toastTimer = setTimeout(() => toast.classList.remove('show'), duration);
     }
 
-    /* ─── 1. Live countdown banner (ticks every second) ─── */
+    
     const TOURNAMENT = new Date('2026-12-05T08:00:00');
     function updateCountdown() {
       const diff = TOURNAMENT - Date.now();
@@ -430,14 +429,14 @@
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
-    /* ─── 2. Hero title letter-by-letter reveal ─── */
+    
     const titleEl = document.getElementById('schedTitle');
     titleEl.innerHTML = titleEl.textContent.split('').map((ch, i) =>
       ch === ' ' ? ' ' :
       `<span class="letter" style="animation-delay:${i * 38}ms">${ch}</span>`
     ).join('');
 
-    /* ─── 3. Staggered row slide-in + hover bar injection ─── */
+   
     const rows = document.querySelectorAll('.event-table tbody tr');
     rows.forEach((row, i) => {
       const bar = document.createElement('div');
@@ -446,7 +445,7 @@
       setTimeout(() => row.classList.add('in'), 300 + i * 75);
     });
 
-    /* ─── 4. Copy button + row click toast ─── */
+    
     rows.forEach(row => {
       const copyBtn = row.querySelector('.copy-btn');
       if (copyBtn) {
@@ -470,7 +469,7 @@
       });
     });
 
-    /* ─── 5. Day progress bar ─── */
+    
     const progressBar = document.getElementById('day-progress-bar');
     const pctEl       = document.getElementById('progress-pct');
     const textEl      = document.getElementById('progress-text');
@@ -492,7 +491,7 @@
     setTimeout(updateProgress, 500);
     setInterval(updateProgress, 30000);
 
-    /* ─── 6. "NOW" row highlight on tournament day ─── */
+    
     function markNowRow() {
       const now = new Date();
       const isToday = now.getFullYear() === 2026 && now.getMonth() === 11 && now.getDate() === 5;
@@ -521,7 +520,7 @@
     markNowRow();
     setInterval(markNowRow, 60000);
 
-    /* ─── 7. Animated stat counters (fires when scrolled into view) ─── */
+    
     function animateCount(el, target, suffix = '') {
       let startTs = null;
       const duration = 1200;
@@ -544,7 +543,7 @@
     }, { threshold: 0.4 });
     statsObserver.observe(document.getElementById('schedStats'));
 
-    /* ─── 8. Live search / filter ─── */
+    
     const searchInput = document.getElementById('schedSearch');
     const noResults   = document.getElementById('noResults');
     searchInput.addEventListener('input', () => {
