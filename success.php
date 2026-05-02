@@ -231,6 +231,22 @@ $services = !$isMissing && isset($registration['services']) && is_array($registr
       color: rgba(255, 239, 228, 0.84);
     }
 
+    .success-photo {
+      margin: 0 auto 24px;
+      width: min(100%, 360px);
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.18);
+    }
+
+    .success-photo img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
     .success-meta p:last-child {
       margin-bottom: 0;
     }
@@ -285,7 +301,7 @@ $services = !$isMissing && isset($registration['services']) && is_array($registr
         <ul>
           <li><a href="home.html">Home</a></li>
           <li><a href="schedule.html">Schedule</a></li>
-          <li><a href="teams.html">Teams</a></li>
+          <li><a href="teams.php">Teams</a></li>
           <li><a href="register.html" class="btn-register">Register</a></li>
         </ul>
       </nav>
@@ -333,6 +349,12 @@ $services = !$isMissing && isset($registration['services']) && is_array($registr
 
       <?php if ($statusMessage !== ''): ?>
         <p class="status-message"><?= escape($statusMessage) ?></p>
+      <?php endif; ?>
+
+      <?php if (!$isMissing && !empty($registration['team_photo'])): ?>
+        <div class="success-photo">
+          <img src="<?= escape((string) $registration['team_photo']) ?>" alt="Team photo for <?= escape((string) ($registration['university_name'] ?? '')) ?>">
+        </div>
       <?php endif; ?>
 
       <?php if (!$isMissing): ?>

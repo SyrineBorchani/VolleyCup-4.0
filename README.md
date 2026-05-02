@@ -1,149 +1,76 @@
-# 🏐 VolleyCup 4.0
+# VolleyCup 4.0
 
-[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
-[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
-[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-[![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/)
-[![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
+> The official website for the premier intercollegiate volleyball tournament at ENSI, built with HTML, CSS, JavaScript, PHP, and MySQL.
 
-> 🎓 **Academic Project** | 🏐 **Intercollegiate Volleyball Tournament** | 🇹🇳 **ENSI, Tunisia**
+## Pages
 
-**VolleyCup 4.0** is the official website for the premier intercollegiate volleyball tournament organized at ENSI — the National School of Computer Science. It provides a full tournament experience: event highlights, schedule, participating teams, and a complete team registration flow backed by PHP and MySQL.
+| Page | File | Description |
+|------|------|-------------|
+| Home | `home.html` | Landing page with event highlights, gallery, and organizers |
+| Schedule | `schedule.html` | Tournament day timeline from check-in to closing celebration |
+| Register | `register.html` | Team registration form with live validation, team name support, optional services, and optional team photo upload |
+| Success | `success.php` | Registration confirmation page with cancellation support |
+| Teams | `teams.php` | Featured teams plus database-backed registered teams loaded with PDO |
 
----
+## Features
 
-> 🛠️ **Current Status**: Fully functional registration flow with PHP validation, MySQL persistence, confirmation and cancellation pages, and a live team summary dashboard.
+- Team registration with client-side and server-side validation
+- PDO-based MySQL persistence through a repository layer
+- Required team name, university, captain, roster size, category, and contact details
+- Optional team photo upload with image validation
+- Confirmation page with full saved registration details
+- Cancellation flow for submitted registrations
+- Dynamic teams page showing saved registrations from the database
 
----
+## Tech Stack
 
-## 📸 Pages Overview
+- HTML5
+- CSS3
+- Vanilla JavaScript
+- PHP
+- MySQL
 
-### 🏠 Home (`home.html`)
-The landing page features a full-screen hero section with event highlights, an animated statistics block, a phone mockup gallery, a photo gallery, and an organizers section.
-
-### 📅 Schedule (`schedule.html`)
-A full tournament day timeline from check-in through to the closing celebration, giving participants a clear picture of the day's flow.
-
-### 🏆 Teams (`teams.html`)
-Displays all participating university teams with a live ticker, spotlight modal per team, search and sort toolbar, and a scroll-to-top button.
-
-### 📋 Register (`register.html`)
-A multi-field registration form with client-side live validation, a reset button, optional services checkboxes, and a sound effect on successful submission. Fields are organized as:
-
-| Row | Left | Right |
-|-----|------|-------|
-| 1 | Team Name | Roster Size |
-| 2 | University Name | Team Captain |
-| 3 | Contact Phone | Team Contact Email |
-| 4 | — | Team Category (Men / Women / Mixed) |
-
-### ✅ Success (`success.php`)
-Displays full registration details after submission. Supports a cancellation flow with visual state changes for confirmed vs cancelled registrations.
-
----
-
-## ✨ Key Features
-
-- 📝 **Team Registration Form** — Full client-side and server-side validation with live field feedback and sound feedback on submit.
-- 🗄️ **PHP + MySQL Backend** — Registrations saved to MySQL via PDO prepared statements with a clean repository pattern.
-- ✅ **Confirmation & Cancellation** — Every registration gets a unique ID and a dedicated status page with a one-click cancel flow.
-- 🏐 **Teams Page** — Live ticker, spotlight overlay, search/filter toolbar, and smooth scroll-to-top.
-- 📊 **Category Summary** — `team_summary.php` groups confirmed teams by category using PHP array functions and echo output.
-- 🎨 **Consistent Design System** — Dark theme with orange accent (`#ff5a00`), shared header/footer, and smooth animations throughout.
-
----
-
-## 🛠️ Tech Stack
-
-| Technology | Purpose |
-|------------|---------|
-| **HTML5** | Semantic page structure |
-| **CSS3** | Layout (Grid, Flexbox), animations, dark theme |
-| **Vanilla JavaScript** | Live validation, form submission via Fetch API, audio feedback |
-| **Native PHP** | Server-side validation, PDO, registration repository pattern |
-| **MySQL** | Relational storage via XAMPP |
-
----
-
-## 📁 File Structure
+## File Structure
 
 ```text
-📦 VolleyCup-4.0/
-│
-├── 🌐 home.html
-├── 📅 schedule.html
-├── 🏆 teams.html
-├── 📋 register.html
-├── ✅ success.php
-├── submit_registration.php
-├── add_test_team.php
-├── update_test_registration.php
-│
-├── 📁 config/
-│   └── database.php
-│
-├── 📁 includes/
-│   └── registration_repository.php
-│
-├── 📁 database/
-│   └── volleycup4_setup.sql
-│
-├── 📁 src/
-│   ├── assets/
-│   │   ├── images/
-│   │   │   ├── hero.jfif
-│   │   │   ├── volleyball.png
-│   │   │   ├── g1.jfif - g5.jfif
-│   │   │   ├── syrine.jfif
-│   │   │   ├── mokhtar.png
-│   │   │   └── lamiss.png
-│   │   └── video/
-│   │       └── Video.mp4
-│   └── js/
-│       ├── home.js
-│       └── register.js
-│
-├── style.css
-├── style_header_footer.css
-└── schedule.css
+volleycup/
+|-- home.html
+|-- schedule.html
+|-- register.html
+|-- success.php
+|-- teams.php
+|-- submit_registration.php
+|-- add_test_team.php
+|-- update_test_registration.php
+|-- config/
+|   `-- database.php
+|-- database/
+|   `-- volleycup4_setup.sql
+|-- includes/
+|   |-- Registration.php
+|   |-- RegistrationRepository.php
+|   `-- registration_repository.php
+|-- src/
+|   |-- assets/
+|   |   |-- images/
+|   |   `-- video/
+|   `-- js/
+|       |-- home.js
+|       |-- register.js
+|       `-- teams.js
+|-- style.css
+|-- style_header_footer.css
+|-- schedule.css
 ```
 
----
+## Getting Started
 
-## 🚀 Getting Started
+1. Place the project in your XAMPP `htdocs` directory.
+2. Start Apache and MySQL from XAMPP.
+3. Import `database/volleycup4_setup.sql` into phpMyAdmin.
+4. Open `http://localhost/VolleyCup-4.0/home.html`.
 
-This project runs through Apache and MySQL in XAMPP.
-
-### Prerequisites
-- [XAMPP](https://www.apachefriends.org/) installed
-- A modern browser (Chrome, Firefox, Edge)
-
-### Setup Instructions
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/SyrineBorchani/VolleyCup-4.0.git
-   cd VolleyCup-4.0
-   ```
-
-2. **Place the folder in XAMPP**
-   ```
-   xampp/htdocs/VolleyCup-4.0/
-   ```
-
-3. **Start Apache and MySQL** in the XAMPP Control Panel.
-
-4. **Import the database**
-   - Open [phpMyAdmin](http://localhost/phpmyadmin)
-   - Import `database/volleycup4_setup.sql`
-
-5. **Open the project**
-   ```
-   http://localhost/VolleyCup-4.0/home.html
-   ```
-
-### Optional Environment Variables
-Only needed if you are not using default XAMPP credentials:
+Optional environment variables if you are not using the default XAMPP credentials:
 
 ```bash
 VOLLEYCUP_DB_HOST=127.0.0.1
@@ -153,61 +80,7 @@ VOLLEYCUP_DB_USER=root
 VOLLEYCUP_DB_PASS=
 ```
 
-> ⚠️ The PHP registration flow will not work if you open files directly from disk. Always serve through XAMPP.
+## Notes
 
----
-
-## 👥 Friend / Teammate Setup
-
-1. Install XAMPP.
-2. Copy this project into `xampp/htdocs/VolleyCup-4.0`.
-3. Start Apache and MySQL in XAMPP.
-4. Open phpMyAdmin and import `database/volleycup4_setup.sql`.
-5. Open `http://localhost/VolleyCup-4.0/home.html`.
-
-Default XAMPP credentials already configured in the project:
-
-| Setting | Value |
-|---------|-------|
-| Host | `127.0.0.1` |
-| Port | `3306` |
-| Database | `volleycup4.0` |
-| User | `root` |
-| Password | *(empty)* |
-
----
-
-## 🔄 Registration Flow
-
-```
-register.html  →  register.js (live validation + Fetch API)
-      ↓
-submit_registration.php (PHP server-side validation)
-      ↓
-registration_repository.php (PDO INSERT)
-      ↓
-MySQL registrations table
-      ↓
-success.php?id=... (confirmation + cancel button)
-```
-
----
-
-## 🧪 Dev Helpers
-
-| File | Purpose | How to use |
-|------|---------|-----------|
-| `add_test_team.php` | Insert a test registration | Visit in browser |
-| `update_test_registration.php` | Update a registration via URL params | `?id=abc&teamName=Thunder&uni=ENSI&roster=10&category=mixed` |
-
----
-
-## 🎓 Academic Project Notice
-
-This is a non-commercial educational project built for a university web development course at ENSI — the National School of Computer Science, Tunisia. It is not intended for commercial use.
-
----
-
-## 🙏 Special Thanks
-
-Built with passion at ENSI, Tunisia. 🏐🇹🇳
+- The PHP registration flow must be served through Apache/XAMPP.
+- `add_test_team.php` and `update_test_registration.php` are helper scripts for local testing.

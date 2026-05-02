@@ -15,7 +15,87 @@ function string_length(string $value): int
     return function_exists('mb_strlen') ? mb_strlen($value) : strlen($value);
 }
 
-function validate_registration(array $input): array
+function validate_team_photo(?array $file): ?string
+{
+    if (!is_array($file) || !isset($file['error'])) {
+        return null;
+    }
+
+    $errorCode = (int) $file['error'];
+
+    if ($errorCode === UPLOAD_ERR_NO_FILE) {
+        return null;
+    }
+
+    if ($errorCode !== UPLOAD_ERR_OK) {
+        return 'The team photo upload could not be completed.';
+    }
+
+    $tmpName = isset($file['tmp_name']) ? (string) $file['tmp_name'] : '';
+
+    if ($tmpName === '' || !is_uploaded_file($tmpName)) {
+        return 'The uploaded team photo is invalid.';
+    }
+
+    if ((int) ($file['size'] ?? 0) > 3 * 1024 * 1024) {
+        return 'Team photo size must stay under 3 MB.';
+    }
+
+    $mimeType = mime_content_type($tmpName);
+    $allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+
+    if (!in_array($mimeType, $allowedTypes, true)) {
+        return 'Please upload a JPG, PNG, or WEBP team photo.';
+    }
+
+    return null;
+}
+
+function store_team_photo(array $file): string
+{
+    $uploadDirectory = __DIR__ . '/uploads/team-photos';
+
+    if (!is_dir($uploadDirectory) && !mkdir($uploadDirectory, 0777, true) && !is_dir($uploadDirectory)) {
+        throw new RuntimeException('Could not create the team photo upload directory.');
+    }
+
+    $mimeToExtension = [
+        'image/jpeg' => 'jpg',
+        'image/png' => 'png',
+        'image/webp' => 'webp',
+    ];
+    $tmpName = (string) $file['tmp_name'];
+    $mimeType = mime_content_type($tmpName);
+    $extension = $mimeToExtension[$mimeType] ?? null;
+
+    if ($extension === null) {
+        throw new RuntimeException('Unsupported team photo format.');
+    }
+
+    $filename = 'team-' . bin2hex(random_bytes(8)) . '.' . $extension;
+    $destination = $uploadDirectory . '/' . $filename;
+
+    if (!move_uploaded_file($tmpName, $destination)) {
+        throw new RuntimeException('Could not save the uploaded team photo.');
+    }
+
+    return 'uploads/team-photos/' . $filename;
+}
+
+function delete_team_photo_file(?string $relativePath): void
+{
+    if ($relativePath === null || $relativePath === '') {
+        return;
+    }
+
+    $fullPath = __DIR__ . '/' . str_replace('/', DIRECTORY_SEPARATOR, $relativePath);
+
+    if (is_file($fullPath)) {
+        @unlink($fullPath);
+    }
+}
+
+function validate_registration(array $input, ?array $teamPhoto): array
 {
     $errors = [];
 
@@ -65,6 +145,11 @@ function validate_registration(array $input): array
         $errors['comments'] = 'Comments must stay under 600 characters.';
     }
 
+    $teamPhotoError = validate_team_photo($teamPhoto);
+    if ($teamPhotoError !== null) {
+        $errors['teamPhoto'] = $teamPhotoError;
+    }
+
     return $errors;
 }
 
@@ -91,7 +176,8 @@ $formData = [
     'comments' => trim((string) ($_POST['comments'] ?? '')),
 ];
 
-$errors = validate_registration($formData);
+$teamPhoto = isset($_FILES['teamPhoto']) && is_array($_FILES['teamPhoto']) ? $_FILES['teamPhoto'] : null;
+$errors = validate_registration($formData, $teamPhoto);
 
 if ($errors !== []) {
     http_response_code(422);
@@ -104,6 +190,10 @@ if ($errors !== []) {
 }
 
 try {
+    $storedTeamPhoto = validate_team_photo($teamPhoto) === null && is_array($teamPhoto) && (int) ($teamPhoto['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_OK
+        ? store_team_photo($teamPhoto)
+        : null;
+
     $registrationId = volleycup_create_registration([
         'university_name' => $formData['uniName'],
         'team_name' => $formData['teamName'],
@@ -114,6 +204,7 @@ try {
         'category' => $formData['category'],
         'services' => $formData['services'],
         'comments' => $formData['comments'],
+        'team_photo' => $storedTeamPhoto,
         'status' => 'confirmed',
     ]);
 
@@ -122,6 +213,10 @@ try {
         'registrationId' => $registrationId,
     ]);
 } catch (Throwable $exception) {
+    if (isset($storedTeamPhoto)) {
+        delete_team_photo_file($storedTeamPhoto);
+    }
+
     http_response_code(500);
     echo json_encode([
         'ok' => false,

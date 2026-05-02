@@ -17,7 +17,7 @@
                 <ul>
                     <li><a href="home.html">Home</a></li>
                     <li><a href="schedule.html">Schedule</a></li>
-                    <li><a href="teams.html">Teams</a></li>
+                    <li><a href="teams.php">Teams</a></li>
                     <li><a href="register.html" class="btn-register">Register</a></li>
                 </ul>
             </nav>
@@ -40,7 +40,7 @@
 
     <p id="serverMessage" class="server-message" style="display: none; margin: 0 0 20px; padding: 14px 16px; border-radius: 14px; background: rgba(255, 107, 107, 0.12); border: 1px solid rgba(255, 107, 107, 0.32); color: #ffd7d7; font-weight: 600;"></p>
 
-    <form class="form" id="registrationForm" method="post" action="submit_registration.php" novalidate>
+    <form class="form" id="registrationForm" method="post" action="submit_registration.php" enctype="multipart/form-data" novalidate>
       <div class="grid-2">
         <div class="field">
          <label for="teamName">Team Name</label>
@@ -133,6 +133,13 @@
         <label for="comments">Comments</label>
         <textarea id="comments" name="comments" rows="5" placeholder="Write any additional notes or requests here..." style="width: 100%; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 14px 16px; background: rgba(255,255,255,0.04); color: #000000; resize: vertical; font: inherit;"></textarea>
         <p class="field-error" data-error-for="comments" style="color: #ff4d4f; font-size: 0.9rem; margin-top: 6px; min-height: 20px; font-weight: 600;"></p>
+      </div>
+
+      <div class="field">
+        <label for="teamPhoto">Team Photo</label>
+        <input id="teamPhoto" name="teamPhoto" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp">
+        <p style="margin: 8px 0 0; color: rgba(243, 245, 255, 0.68); font-size: 0.92rem;">Optional. Upload a JPG, PNG, or WEBP image up to 3 MB to show your team on the teams page.</p>
+        <p class="field-error" data-error-for="teamPhoto" style="color: #ff4d4f; font-size: 0.9rem; margin-top: 6px; min-height: 20px; font-weight: 600;"></p>
       </div>
 
       <div class="form-actions">

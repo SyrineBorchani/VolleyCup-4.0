@@ -14,25 +14,37 @@ function volleycup_env(string $key, string $default): string
 
 function volleycup_database(): PDO
 {
-    static $pdo = null;
+    static $conn = null;
 
-    if ($pdo instanceof PDO) {
-        return $pdo;
+    if ($conn instanceof PDO) {
+        return $conn;
     }
 
-    $host = volleycup_env('VOLLEYCUP_DB_HOST', '127.0.0.1');
+    $servername = volleycup_env('VOLLEYCUP_DB_HOST', '127.0.0.1');
     $port = volleycup_env('VOLLEYCUP_DB_PORT', '3306');
-    $name = volleycup_env('VOLLEYCUP_DB_NAME', 'volleycup4.0');
-    $user = volleycup_env('VOLLEYCUP_DB_USER', 'root');
+    $dbname = volleycup_env('VOLLEYCUP_DB_NAME', 'volleycup4.0');
     $password = volleycup_env('VOLLEYCUP_DB_PASS', '');
+    $username = volleycup_env('VOLLEYCUP_DB_USER', 'root');
 
-    $dsn = sprintf('mysql:host=%s;port=%s;dbname=%s;charset=utf8mb4', $host, $port, $name);
+    $dsn = sprintf(
+        'mysql:host=%s;port=%s;dbname=%s;charset=utf8mb4',
+        $servername,
+        $port,
+        $dbname
+    );
 
-    $pdo = new PDO($dsn, $user, $password, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    ]);
+    // Create connection in the same PDO style shown in the course slides.
+    $conn = new PDO($dsn, $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
+    volleycup_ensure_registrations_table($conn);
+
+    return $conn;
+}
+
+function volleycup_ensure_registrations_table(PDO $pdo): void
+{
     $pdo->exec(
         'CREATE TABLE IF NOT EXISTS registrations (
             id VARCHAR(32) PRIMARY KEY,
@@ -45,11 +57,24 @@ function volleycup_database(): PDO
             category VARCHAR(20) NOT NULL,
             services_json TEXT NOT NULL,
             comments TEXT NOT NULL,
+            team_photo VARCHAR(255) NULL,
             status VARCHAR(20) NOT NULL DEFAULT "confirmed",
             submitted_at DATETIME NOT NULL,
             cancelled_at DATETIME NULL
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci'
     );
 
-    return $pdo;
+    $teamNameColumnCheck = $pdo->query("SHOW COLUMNS FROM registrations LIKE 'team_name'");
+    $teamNameColumn = $teamNameColumnCheck === false ? false : $teamNameColumnCheck->fetch();
+
+    if (!is_array($teamNameColumn)) {
+        $pdo->exec("ALTER TABLE registrations ADD COLUMN team_name VARCHAR(255) NOT NULL DEFAULT '' AFTER university_name");
+    }
+
+    $columnCheck = $pdo->query("SHOW COLUMNS FROM registrations LIKE 'team_photo'");
+    $teamPhotoColumn = $columnCheck === false ? false : $columnCheck->fetch();
+
+    if (!is_array($teamPhotoColumn)) {
+        $pdo->exec('ALTER TABLE registrations ADD COLUMN team_photo VARCHAR(255) NULL AFTER comments');
+    }
 }

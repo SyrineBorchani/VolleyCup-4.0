@@ -1,5 +1,5 @@
 function getFormFields() {
-  return Array.from(document.querySelectorAll("#registrationForm input[type='text'], #registrationForm input[type='number'], #registrationForm input[type='email'], #registrationForm input[type='tel'], #registrationForm textarea"));
+  return Array.from(document.querySelectorAll("#registrationForm input[type='text'], #registrationForm input[type='number'], #registrationForm input[type='email'], #registrationForm input[type='tel'], #registrationForm input[type='file'], #registrationForm textarea"));
 }
 
 function getErrorElement(fieldId) {
@@ -81,11 +81,34 @@ function clearAllErrors() {
 
 function isFormEmpty() {
   return getFormFields().every(function(field) {
+    if (field.type === "file") {
+      return !field.files || field.files.length === 0;
+    }
+
     return !field.value.trim();
   });
 }
 
 function validateField(field) {
+  if (field.type === "file") {
+    if (!field.files || field.files.length === 0) {
+      return "";
+    }
+
+    const file = field.files[0];
+    const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+
+    if (allowedTypes.indexOf(file.type) === -1) {
+      return "Upload a JPG, PNG, or WEBP image.";
+    }
+
+    if (file.size > 3 * 1024 * 1024) {
+      return "Image size must stay under 3 MB.";
+    }
+
+    return "";
+  }
+
   const value = field.value.trim();
 
   switch (field.id) {
