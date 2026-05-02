@@ -341,15 +341,15 @@ try {
             <div class="footer-column">
                 <h3>Contact Us</h3>
                 <ul class="contact-info">
-                    <li>ðŸ“§ <a href="https://mail.google.com/mail/u/6/#inbox">
+                    <li> 📧 <a href="https://mail.google.com/mail/u/6/#inbox">
                             volleycup.x@gmail.com
                             </a>
                     </li>
-                    <li>ðŸ“ž <a href="tel:+216123456789">
+                    <li>📞  <a href="tel:+216123456789">
                              +216 123 456 789
                             </a>
                     </li>
-                    <li>ðŸ“<a href="https://maps.app.goo.gl/LzZDCpgUu3KXt3e27">
+                    <li>📍<a href="https://maps.app.goo.gl/LzZDCpgUu3KXt3e27">
                            ENSI - National School of Computer Science
                            </a>
                     </li>
