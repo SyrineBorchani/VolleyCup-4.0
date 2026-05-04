@@ -63,12 +63,23 @@ function setupGalleryImageDemo() {
     return;
   }
 
-  const firstImage = "src/assets/images/g1.jfif";
-  const secondImage = "src/assets/images/g2.jfif";
+  const galleryImages = Array.from(document.querySelectorAll(".gallery-grid img"))
+    .map(function(image) {
+      return image.getAttribute("src") || "";
+    })
+    .filter(function(source, index, sources) {
+      return source !== "" && sources.indexOf(source) === index;
+    });
+
+  if (galleryImages.length < 2) {
+    return;
+  }
 
   mainGalleryImage.addEventListener("click", function() {
     const currentSource = mainGalleryImage.getAttribute("src") || "";
-    const nextSource = currentSource === firstImage ? secondImage : firstImage;
+    const currentIndex = galleryImages.indexOf(currentSource);
+    const nextIndex = currentIndex === -1 ? 0 : (currentIndex + 1) % galleryImages.length;
+    const nextSource = galleryImages[nextIndex];
 
     mainGalleryImage.setAttribute("src", nextSource);
   });

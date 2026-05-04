@@ -33,7 +33,6 @@ function volleycup_database(): PDO
         $dbname
     );
 
-    // Create connection in the same PDO style shown in the course slides.
     $conn = new PDO($dsn, $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
