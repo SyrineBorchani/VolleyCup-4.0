@@ -163,7 +163,7 @@ try {
         <p class="teams-subtitle">Meet the top-ranked university teams competing the last year 24-25</p>
         <hr class="teams-divider">
         <div class="spotlight-toggle-wrap">
-            <button id="spotlightToggle">ðŸŽ¨ Unified Mode</button>
+            <button id="spotlightToggle"> 🎨 Unified Mode</button>
         </div>
         </div>
 
@@ -321,7 +321,7 @@ try {
         <?php endif; ?>
     </section>
 
-    <button id="scrollTopBtn" title="Back to top">â†‘</button>
+    <button id="scrollTopBtn" title="Back to top"> ⬆️</button>
     </main>
 
     <footer class="main-footer">
@@ -333,10 +333,6 @@ try {
                     tournament bringing universities
                     together since 2023.
                 </p>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
             </div>
             <div class="footer-column">
                 <h3>Contact Us</h3>
@@ -345,11 +341,11 @@ try {
                             volleycup.x@gmail.com
                             </a>
                     </li>
-                    <li>📞  <a href="tel:+216123456789">
+                    <li> 📞  <a href="tel:+216123456789">
                              +216 123 456 789
                             </a>
                     </li>
-                    <li>📍<a href="https://maps.app.goo.gl/LzZDCpgUu3KXt3e27">
+                    <li> 📍<a href="https://maps.app.goo.gl/LzZDCpgUu3KXt3e27">
                            ENSI - National School of Computer Science
                            </a>
                     </li>
