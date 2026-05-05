@@ -15,7 +15,7 @@ try {
         'services' => ['practice'],
         'comments' => 'Created by add_test_team.php',
         'team_photo' => null,
-        'status' => 'cancelled',
+        'status' => 'confirmed',
         'submitted_at' => date('Y-m-d H:i:s'),
         'cancelled_at' => date('Y-m-d H:i:s'),
     ]);
